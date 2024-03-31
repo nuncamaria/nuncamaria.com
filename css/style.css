@@ -11,13 +11,20 @@
 }
 
 :root {
-  animation: animateBgGradient 5s infinite alternate;
-  background: radial-gradient(ellipse at top, #f1e8ff, #d4fff4);
-  background-size: 200% 100%;
   --padding-default: 1rem 0;
   font-family: "Poppins", Helvetica, Arial, sans-serif;
   font-size: 18px;
   scroll-behavior: smooth;
+}
+
+body {
+  animation: animateBgGradient 5s infinite alternate;
+  background: radial-gradient(ellipse at top, #f1e8ff, #d4fff4);
+  background-size: 200% 100%;
+}
+
+h3 {
+  font-weight: 500;
 }
 
 .header {
@@ -37,6 +44,12 @@
   display: flex;
   flex-flow: column wrap;
   grid-area: title;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+
+.header .title span {
+  font-weight: 500;
 }
 
 .header .profile-image {
@@ -70,10 +83,14 @@
   padding: 1rem;
 }
 
+.main .info:hover {
+  border: thin solid black;
+  transition: ease-in-out 0.2s;
+}
+
 /* ACCORDION */
 .accordion {
   cursor: pointer;
-  transition: ease-in-out;
 }
 
 .active,
@@ -108,13 +125,13 @@
 .main #work {
   display: grid;
   grid: auto-flow / repeat(2, 1fr);
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: center;
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
 }
 
 .main #work .illustration {
-  background-color: #eee;
+  background-color: #fdffdf;
   border-radius: 0.5rem;
   height: 300px;
 }
@@ -144,16 +161,20 @@ button:hover {
 #draw-1 {
   background: url(../images/draw-1.jpeg) center no-repeat;
   background-size: cover;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
 }
 
 #draw-2 {
   background: url(../images/draw-2.jpeg) center no-repeat;
   background-size: cover;
+  border-bottom: thin solid black;
 }
 
 #draw-3 {
   background: url(../images/draw-3.jpeg) center no-repeat;
   background-size: cover;
+  border-right: thin solid black;
 }
 
 #draw-4 {
@@ -224,12 +245,7 @@ body .footer .footer-nav .nav-menu {
 @media (min-width: 768px) {
   .header .title {
     font-size: 3rem;
-    font-weight: 600;
     line-height: 3.8rem;
-  }
-
-  .header .title span {
-    font-weight: 600;
   }
 
   .header .profile-image {
