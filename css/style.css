@@ -11,6 +11,9 @@
 }
 
 :root {
+  animation: animateBgGradient 5s infinite alternate;
+  background: radial-gradient(ellipse at top, #f1e8ff, #d4fff4);
+  background-size: 200% 100%;
   --padding-default: 1rem 0;
   font-family: "Heebo", Helvetica, Arial, sans-serif;
   font-size: 18px;
@@ -157,6 +160,18 @@ body .footer .footer-nav .nav-menu {
 
 .nav-link:hover {
   font-weight: 600;
+}
+
+/* KEY FRAMES */
+
+@keyframes animateBgGradient {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 /* MEDIA QUERIES */
