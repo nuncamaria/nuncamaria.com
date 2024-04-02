@@ -18,9 +18,9 @@
 }
 
 body {
-  animation: animateBgGradient 5s infinite alternate;
-  background: radial-gradient(ellipse at top, #f1e8ff, #d4fff4);
-  background-size: 200% 100%;
+  animation: animateBgGradient 2s infinite alternate;
+  background: radial-gradient(ellipse at top, #dbfeff, #dfc4ff);
+  background-size: 200% 200%;
 }
 
 h3 {
@@ -88,6 +88,17 @@ h3 {
   transition: ease-in-out 0.2s;
 }
 
+.main .info h2 {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main .info h2 .accordion-arrow {
+  margin: 0rem 0.5rem;
+}
+
 /* ACCORDION */
 .accordion {
   cursor: pointer;
@@ -122,18 +133,22 @@ h3 {
   text-align: end;
 }
 
+.main #skills {
+  margin-bottom: 5rem;
+}
+
 .main #work {
   display: grid;
   grid: auto-flow / repeat(2, 1fr);
   gap: 1rem;
   justify-content: center;
-  margin-bottom: 5rem;
+  margin-top: 1rem;
 }
 
 .main #work .illustration {
   background-color: #fdffdf;
   border-radius: 0.5rem;
-  height: 300px;
+  min-height: 200px;
 }
 
 button {
