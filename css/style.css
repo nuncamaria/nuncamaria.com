@@ -169,7 +169,7 @@ h3 {
   display: flex;
   flex-flow: column wrap;
   gap: .5rem;
-  margin: .5rem 0rem;
+  padding: .6rem 0rem;
 }
 
 .main .info .p .job-position {
