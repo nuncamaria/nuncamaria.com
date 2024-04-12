@@ -180,7 +180,7 @@ h3 {
   font-size: small;
 }
 
-.main .info .p .time-period {
+.main .info .p .caption {
   color: grey;
   font-size: small;
   font-style: italic;
@@ -188,7 +188,7 @@ h3 {
 
 .main .info .p .achievements li {
   list-style: circle;
-  margin-left: 1rem;
+  margin-left: 1.2rem;
 }
 
 .main #work {
