@@ -181,7 +181,6 @@ h3 {
 .footer {
   background-color: white;
   bottom: 0;
-  padding: 0.5rem 0;
   position: fixed;
   margin: var(--margin-centered);
   width: 100%;
