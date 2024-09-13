@@ -169,6 +169,11 @@ h3 {
   padding: 0.5rem;
 }
 
+.main #projects .project-link {
+  color: blue;
+  text-decoration: underline;
+}
+
 .main #education {
   margin-bottom: 5rem;
 }
