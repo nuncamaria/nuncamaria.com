@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   border: none;
-  color: black;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -11,17 +10,18 @@
 }
 
 :root {
+  --primary-gradient: radial-gradient(circle at left top, #ffdd55, #ff39ad);
   --padding-default: 1rem 0;
   --general-max-width: 900px;
   --margin-centered: 0 auto;
+  --background-color: #191919;
   font-family: "Poppins", Helvetica, Arial, sans-serif;
   font-size: 18px;
   scroll-behavior: smooth;
 }
 
 body {
-  animation: animateBgGradient 5s infinite alternate;
-  background: radial-gradient(circle at center, #dbfeff, #d3afff);
+  background: var(--background-color);
   background-size: 200% 100%;
   position: relative;
   height: 100vh;
@@ -32,6 +32,7 @@ h3 {
 }
 
 .header {
+  color: #f2f2f2;
   margin: var(--margin-centered);
   max-width: var(--general-max-width);
   padding: 1rem 0;
@@ -39,47 +40,54 @@ h3 {
 
 .header-info {
   display: grid;
+  gap: 2rem;
   grid-template-columns: auto;
   grid-template-rows: 1fr auto;
   grid-template-areas:
     "title button"
     "about button";
-  padding: 0rem 1rem;
+  padding: 2rem 1rem;
 }
 
 .header-info .title {
+  background: var(--primary-gradient);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   display: flex;
   flex-flow: column wrap;
   grid-area: title;
-  font-weight: 600;
+  font-size: 3rem;
+  font-weight: 500;
   line-height: 2.5rem;
 }
 
 .header-info .title span {
+  font-size: 2rem;
   font-weight: 500;
+  padding: 0 .1rem;
 }
 
 .header-info .about {
-  padding: var(--padding-default);
   grid-area: about;
+  padding: 0 .1rem;
 }
 
 .main {
   display: grid;
   gap: 2rem;
-  margin: 1rem auto;
-  padding: 0.5rem 1rem;
+  margin: var(--margin-centered);
+  padding: 0rem 1rem 2rem 1rem;
   max-width: var(--general-max-width);
 }
 
 .main .info {
-  background-color: white;
+  background-color: #f2f2f2;
   border-radius: 1rem;
   padding: 1rem;
 }
 
 .main .info:hover {
-  border: thin solid black;
+  border: thin solid #191919;
   transition: ease-in-out 0.2s;
 }
 
@@ -101,7 +109,7 @@ h3 {
 }
 
 .main .active {
-  border-bottom: thin solid black;
+  border-bottom: thin solid #191919;
 }
 
 .panel {
@@ -131,7 +139,7 @@ h3 {
 }
 
 .main #about-me .p .hobbies li {
-  background-color: #dbfeff;
+  background-color: #ffec9e;
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
 }
@@ -163,7 +171,7 @@ h3 {
 }
 
 .main .info .skill {
-  background-color: #dbfeff;
+  background-color: #ffec9e;
   border-radius: 0.5rem;
   min-height: 200px;
   padding: 0.5rem;
@@ -179,8 +187,9 @@ h3 {
 }
 
 .footer {
-  background-color: white;
+  background-color: #191919;
   bottom: 0;
+  border-top: thin solid grey;
   position: fixed;
   margin: var(--margin-centered);
   width: 100%;
@@ -205,6 +214,7 @@ body .footer .footer-nav .nav-menu {
 }
 
 .nav-link {
+  color: #f2f2f2;
   padding: 0.5rem 0;
 }
 
@@ -222,13 +232,13 @@ body .footer .footer-nav .nav-menu {
 }
 
 .nav-back {
-  border: thin solid black;
+  border: thin solid #191919;
   border-radius: 2rem;
   padding: 0.8rem 1.5rem;
 }
 
 .nav-back:hover {
-  background: white;
+  background: #f2f2f2;
 }
 
 /* KEY FRAMES */
@@ -251,9 +261,19 @@ body .footer .footer-nav .nav-menu {
     position: relative;
   }
 
-  .header .title {
+  .header .title span {
     font-size: 3rem;
-    line-height: 3.8rem;
+    line-height: 3.2rem;
+    padding: 0 .1rem;
+  }
+
+  .header .title {
+    font-size: 4.5rem;
+    line-height: 4.2rem;
+  }
+
+  .header-info .about {
+    padding: 0 .2rem;
   }
 
   .main #work {
