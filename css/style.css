@@ -39,13 +39,9 @@ h3 {
 }
 
 .header-info {
-  display: grid;
+  display: flex;
+  flex-flow: column wrap;
   gap: 2rem;
-  grid-template-columns: auto;
-  grid-template-rows: 1fr auto;
-  grid-template-areas:
-    "title button"
-    "about button";
   padding: 2rem 1rem;
 }
 
@@ -73,7 +69,8 @@ h3 {
 }
 
 .main {
-  display: grid;
+  display: flex;
+  flex-flow: column wrap;
   gap: 2rem;
   margin: var(--margin-centered);
   padding: 0rem 1rem 2rem 1rem;
@@ -163,7 +160,7 @@ h3 {
   margin-left: 1.2rem;
 }
 
-.main #work {
+.main #skills-grid {
   display: grid;
   grid: auto-flow / repeat(1, 1fr);
   gap: 0.5rem;
@@ -276,7 +273,7 @@ body .footer .footer-nav .nav-menu {
     padding: 0 .2rem;
   }
 
-  .main #work {
+  .main #skills-grid {
     grid: auto-flow / repeat(2, 1fr);
   }
 }
