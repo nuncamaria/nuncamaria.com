@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer. Portfolio and CV of María Núñez.">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" />
-    <title>María Núñez - Personal Website</title>
-    <script src="./js/script.js" type="text/javascript" async></script>
+    <title>María Núñez | UI/UX Designer &amp; Android Developer</title>
+    <script src="./js/script.js" defer></script>
 </head>
 
 <body>
@@ -34,178 +36,267 @@
 
     <main class="main">
         <section class="info" id="about-me" aria-label="about me">
-            <h2 class="accordion">👀 &lt;About me&gt; <span class="accordion-arrow">▾</span></h2>
-            <article class="panel">
-                <p class="p">
-                    I started in illustration and graphic design, where I learned to approach problems visually and from
-                    unexpected angles.
-                </p>
-                <p class="p">
-                    Curious about how interfaces are built, I moved into front-end development and then Android, where I
-                    worked for three years in Kotlin and Jetpack Compose.
-                </p>
-                <p class="p">
-                    Today I bring both sides together in UI/UX, designing with an understanding of how things get built.
-                </p>
-                <p class="p">
-                    I believe people are in the world to observe and listen. That's how I see life. After that, we
-                    can figure out what to do with it. I care about people and the problems we go through.
-                </p>
-                <div class="p" id="hobbies">
-                    <p class="caption">Away from the screen:
+            <h2>
+                <button class="accordion" type="button" id="about-me-btn" aria-expanded="true"
+                    aria-controls="about-me-panel">
+                    <span class="accordion-label">
+                        <span aria-hidden="true">👀</span>
+                        <span class="accordion-title">About me</span>
+                    </span>
+                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                </button>
+            </h2>
+            <article class="panel is-open" id="about-me-panel" role="region" aria-labelledby="about-me-btn">
+                <div class="panel-inner">
+                    <p class="p">
+                        I started in illustration and graphic design, where I learned to approach problems visually and
+                        from unexpected angles.
                     </p>
-                    <ul class="hobbies">
-                        <li>🧗‍♂️ Climbing</li>
-                        <li>⛰️ Hiking</li>
-                        <li>🎨 Drawing</li>
-                        <li>🤸‍♀️ Dancing</li>
-                        <li>🧘‍♂️ Meditation</li>
-                    </ul>
+                    <p class="p">
+                        Curious about how interfaces are built, I moved into front-end development and then Android,
+                        where I worked for three years in Kotlin and Jetpack Compose.
+                    </p>
+                    <p class="p">
+                        Today I bring both sides together in UI/UX, designing with an understanding of how things get
+                        built.
+                    </p>
+                    <p class="p">
+                        I believe people are in the world to observe and listen. That's how I see life. After that, we
+                        can figure out what to do with it. I care about people and the problems we go through.
+                    </p>
+                    <div class="p" id="hobbies">
+                        <p class="caption">Away from the screen:</p>
+                        <ul class="hobbies">
+                            <li>🧗‍♂️ Climbing</li>
+                            <li>⛰️ Hiking</li>
+                            <li>🎨 Drawing</li>
+                            <li>🤸‍♀️ Dancing</li>
+                            <li>🧘‍♂️ Meditation</li>
+                        </ul>
+                    </div>
                 </div>
             </article>
         </section>
+
         <section class="info" id="experience" aria-label="experience">
-            <h2 class="accordion">🚀 &lt;Experience&gt;<span class="accordion-arrow">▾</span></h2>
-            <article class="panel">
-                <div class="p">
-                    <h3 class="job-position">Android Developer <span>at Capitole</span></h3>
-                    <p class="caption">October 2024 - August 2025</p>
-                    <p class="company-info">The client was part of the retail sector. I work as a developer for them
-                        through the consulting company Capitole.</p>
-                    <p class="caption">achievements / tasks:</p>
-                    <ul class="achievements">
-                        <li>Development, testing and maintenance of the app used by employees in the retail stores to
-                            simplify the management and organization both in the store and in the warehouse.</li>
-                    </ul>
-                </div>
+            <h2>
+                <button class="accordion" type="button" id="experience-btn" aria-expanded="false"
+                    aria-controls="experience-panel">
+                    <span class="accordion-label">
+                        <span aria-hidden="true">🚀</span>
+                        <span class="accordion-title">Experience</span>
+                    </span>
+                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                </button>
+            </h2>
+            <article class="panel" id="experience-panel" role="region" aria-labelledby="experience-btn">
+                <div class="panel-inner">
+                    <div class="p">
+                        <h3 class="job-position">
+                            Graphic Designer
+                            <span>at Sindicato de Vivienda de Murcia</span>
+                        </h3>
+                        <p class="caption" id="highlight">Volunteer · Nonprofit</p>
+                        <p class="caption">2025 - Present</p>
+                        <p class="company-info">
+                            A nonprofit community organization focused on housing rights.
+                        </p>
+                        <p class="caption">tasks:</p>
+                        <ul class="achievements">
+                            <li>Designing visual content and communication materials.</li>
+                            <li>Supporting communication initiatives and campaigns.</li>
+                        </ul>
+                    </div>
 
-                <div class="p">
-                    <h3 class="job-position">Android Developer <span>at Wefox Insurance</span></h3>
-                    <p class="caption">October 2021 - July 2024</p>
-                    <p class="company-info">Wefox is an insurtech created with the purpose of driving the digital
-                        transformation of the insurance industry and facilitating collaboration among all stakeholders.
-                    </p>
-                    <p class="caption">achievements / tasks:</p>
-                    <ul class="achievements">
-                        <li>Development, testing and maintenance of the customer app. Participation from the refinement
-                            through the delivery, review and release of the features and goals.</li>
-                        <li>Release of the app for Android in Germany and Switzerland.</li>
-                        <li>Development of a design system library for UI consistency across the app.</li>
-                        <li>Development of a core library for business logic across different apps.</li>
-                        <li>Actively participation in Android Chapters.</li>
-                    </ul>
-                </div>
+                    <div class="p">
+                        <h3 class="job-position">Android Developer <span>at Capitole</span></h3>
+                        <p class="caption">October 2024 - August 2025</p>
+                        <p class="company-info">The client was part of the retail sector. I worked as a developer for
+                            them through the consulting company Capitole.</p>
+                        <p class="caption">achievements / tasks:</p>
+                        <ul class="achievements">
+                            <li>Development, testing and maintenance of the app used by employees in the retail stores
+                                to simplify the management and organization both in the store and in the warehouse.
+                            </li>
+                        </ul>
+                    </div>
 
-                <div class="p">
-                    <h3 class="job-position">Graphic Designer <span>at Ninona Producciones</span></h3>
-                    <p class="caption">October 2017 - July 2020</p>
-                    <p class="company-info">Ninona Producciones is a management agency for comedy artists.</p>
-                    <p class="caption">achievements / tasks:</p>
-                    <ul class="achievements">
-                        <li>Graphic Design of all advertising related with products and services.</li>
-                        <li>Manage of social media advertising campaigns.</li>
-                        <li>Creation and maintenance of all websites with Wordpress.</li>
-                    </ul>
+                    <div class="p">
+                        <h3 class="job-position">Android Developer <span>at Wefox Insurance</span></h3>
+                        <p class="caption">October 2021 - July 2024</p>
+                        <p class="company-info">Wefox is an insurtech created with the purpose of driving the digital
+                            transformation of the insurance industry and facilitating collaboration among all
+                            stakeholders.
+                        </p>
+                        <p class="caption">achievements / tasks:</p>
+                        <ul class="achievements">
+                            <li>Development, testing and maintenance of the customer app. Participation from the
+                                refinement through the delivery, review and release of the features and goals.</li>
+                            <li>Release of the app for Android in Germany and Switzerland.</li>
+                            <li>Development of a design system library for UI consistency across the app.</li>
+                            <li>Development of a core library for business logic across different apps.</li>
+                            <li>Active participation in Android Chapters.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p">
+                        <h3 class="job-position">Graphic Designer <span>at Ninona Producciones</span></h3>
+                        <p class="caption">October 2017 - July 2020</p>
+                        <p class="company-info">Ninona Producciones is a management agency for comedy artists.</p>
+                        <p class="caption">achievements / tasks:</p>
+                        <ul class="achievements">
+                            <li>Graphic Design of all advertising related with products and services.</li>
+                            <li>Manage of social media advertising campaigns.</li>
+                            <li>Creation and maintenance of all websites with Wordpress.</li>
+                        </ul>
+                    </div>
                 </div>
             </article>
         </section>
+
         <section class="info" id="skills" aria-label="skills">
-            <h2 class="accordion">🔎 &lt;Skills&gt; <span class="accordion-arrow">▾</span></h2>
-            <article class="panel">
-                <div id="skills-grid">
-                    <div class="skill" aria-label="skill">
-                        <h3>&lt;Soft skills I have&gt;</h3>
-                        <p>Team player</p>
-                        <p>Proactive</p>
-                        <p>Reliable</p>
-                        <p>Clear communication</p>
-                        <p>Agile mindset</p>
-                    </div>
-                    <div class="skill" aria-label="skill">
-                        <h3>&lt;Languages I speak&gt;</h3>
-                        <p>Spanish, native proficiency</p>
-                        <p>English, professional proficiency</p>
-                    </div>
-                    <div class="skill" aria-label="skill">
-                        <h3>&lt;Good practices, methodologies and processes&gt;</h3>
-                        <p>SOLID principles</p>
-                        <p>Clean architecture</p>
-                        <p>MVVM</p>
-                        <p>Design patterns</p>
-                        <p>Multi-module</p>
-                        <p>Unit & Ui testing</p>
-                    </div>
-                    <div class="skill" aria-label="skill">
-                        <h3>&lt;Tech stack I use&gt;</h3>
-                        <p>Kotlin</p>
-                        <p>Jetpack Compose || XML</p>
-                        <p>Koin || Dagger Hilt</p>
-                        <p>Github</p>
-                        <p>Lokalise</p>
-                        <p>LaunchDarkly</p>
-                        <p>Firebase</p>
-                        <p>Figma</p>
-                        <p>Atlassian suite</p>
+            <h2>
+                <button class="accordion" type="button" id="skills-btn" aria-expanded="false"
+                    aria-controls="skills-panel">
+                    <span class="accordion-label">
+                        <span aria-hidden="true">🔎</span>
+                        <span class="accordion-title">Skills</span>
+                    </span>
+                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                </button>
+            </h2>
+            <article class="panel" id="skills-panel" role="region" aria-labelledby="skills-btn">
+                <div class="panel-inner">
+                    <div id="skills-grid">
+                        <div class="skill">
+                            <h3>&lt;Design skills&gt;</h3>
+                            <p>Graphic Design</p>
+                            <p>UI Design (Web / Mobile)</p>
+                            <p>UX Design &amp; Research</p>
+                            <p>Illustration</p>
+                            <p>Design Systems</p>
+                        </div>
+
+                        <div class="skill">
+                            <h3>&lt;Design stack&gt;</h3>
+                            <p>Figma</p>
+                            <p>Photoshop</p>
+                            <p>Illustrator</p>
+                            <p>InDesign</p>
+                            <p>After Effects</p>
+                        </div>
+
+                        <div class="skill">
+                            <h3>&lt;Development practices&gt;</h3>
+                            <p>SOLID principles</p>
+                            <p>Clean architecture</p>
+                            <p>MVVM</p>
+                            <p>Design patterns</p>
+                            <p>Multi-module architecture</p>
+                            <p>Unit &amp; Ui testing</p>
+                        </div>
+
+                        <div class="skill">
+                            <h3>&lt;Development stack&gt;</h3>
+                            <p>Kotlin</p>
+                            <p>Jetpack Compose || XML</p>
+                            <p>Koin || Dagger Hilt</p>
+                            <p>Github</p>
+                            <p>Lokalise</p>
+                            <p>LaunchDarkly</p>
+                            <p>Firebase</p>
+                            <p>Atlassian suite</p>
+                        </div>
+
+                        <div class="skill">
+                            <h3>&lt;Languages&gt;</h3>
+                            <p>Spanish - Native</p>
+                            <p>English - Professional working proficiency</p>
+                        </div>
                     </div>
                 </div>
             </article>
         </section>
 
         <section class="info" id="projects" aria-label="projects">
-            <h2 class="accordion">🤖 &lt;Projects&gt; <span class="accordion-arrow">▾</span></h2>
-            <article class="panel">
-                <div class="p">
-                    <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
-                            href="https://github.com/nuncamaria/ghibli-api" title="Ghibli World Project source code">
-                            source code</a></h3>
-                    <p class="caption">Api call with Ktor</p>
-                </div>
-                <div class="p">
-                    <h3 class="job-position">To-do CRUD App <a class="project-link" target="_blank"
-                            href="https://github.com/nuncamaria/todo-app" title="To-Do CRUD App source code"> source
-                            code</a></h3>
-                    <p class="caption">Data Base with Room</p>
+            <h2>
+                <button class="accordion" type="button" id="projects-btn" aria-expanded="false"
+                    aria-controls="projects-panel">
+                    <span class="accordion-label">
+                        <span aria-hidden="true">🤖</span>
+                        <span class="accordion-title">Projects</span>
+                    </span>
+                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                </button>
+            </h2>
+            <article class="panel" id="projects-panel" role="region" aria-labelledby="projects-btn">
+                <div class="panel-inner">
+                    <div class="p">
+                        <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
+                                rel="noopener noreferrer" href="https://github.com/nuncamaria/ghibli-api"
+                                title="Ghibli World Project source code">source code</a></h3>
+                        <p class="caption">Api call with Ktor</p>
+                    </div>
+                    <div class="p">
+                        <h3 class="job-position">To-do CRUD App <a class="project-link" target="_blank"
+                                rel="noopener noreferrer" href="https://github.com/nuncamaria/todo-app"
+                                title="To-Do CRUD App source code">source code</a></h3>
+                        <p class="caption">Data Base with Room</p>
+                    </div>
                 </div>
             </article>
         </section>
 
         <section class="info" id="education" aria-label="education">
-            <h2 class="accordion">📚 &lt;Education&gt; <span class="accordion-arrow">▾</span></h2>
-            <article class="panel">
-                <div class="p">
-                    <h3 class="job-position">UI/UX Master <span>at LaBasad</span></h3>
-                    <p class="caption">October 2025 - October 2026, online</p>
-                </div>
-                <div class="p">
-                    <h3 class="job-position">Front-End Development Bootcamp <span>at Adalab</span></h3>
-                    <p class="caption">April - July 2021, online</p>
-                </div>
-                <div class="p">
-                    <h3 class="job-position">Graphic Design Degree <span>at School of Design</span></h3>
-                    <p class="caption">September 2018 - July 2021, on-site in Murcia</p>
-                </div>
-                <div class="p">
-                    <h3 class="job-position"> Advanced Vocational Studies in Illustration <span>at School of Arts</span>
-                    </h3>
-                    <p class="caption">September 2015 - July 2018, on-site in Murcia</p>
+            <h2>
+                <button class="accordion" type="button" id="education-btn" aria-expanded="false"
+                    aria-controls="education-panel">
+                    <span class="accordion-label">
+                        <span aria-hidden="true">📚</span>
+                        <span class="accordion-title">Education</span>
+                    </span>
+                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                </button>
+            </h2>
+            <article class="panel" id="education-panel" role="region" aria-labelledby="education-btn">
+                <div class="panel-inner">
+                    <div class="p">
+                        <h3 class="job-position">UI/UX Master <span>at LaBasad</span></h3>
+                        <p class="caption">October 2025 - October 2026, online</p>
+                    </div>
+                    <div class="p">
+                        <h3 class="job-position">Front-End Development Bootcamp <span>at Adalab</span></h3>
+                        <p class="caption">April - July 2021, online</p>
+                    </div>
+                    <div class="p">
+                        <h3 class="job-position">Graphic Design Degree <span>at School of Design</span></h3>
+                        <p class="caption">September 2018 - July 2021, on-site in Murcia</p>
+                    </div>
+                    <div class="p">
+                        <h3 class="job-position">Advanced Vocational Studies in Illustration
+                            <span>at School of Arts</span>
+                        </h3>
+                        <p class="caption">September 2015 - July 2018, on-site in Murcia</p>
+                    </div>
                 </div>
             </article>
         </section>
     </main>
 
     <footer class="footer">
-        <nav class="footer-nav">
+        <nav class="footer-nav" aria-label="footer">
             <ul class="nav-menu">
                 <li>
-                    <a class="nav-link" target="_blank" href="https://github.com/nuncamaria" title="Github">Github</a>
+                    <a class="nav-link" target="_blank" rel="noopener noreferrer" href="https://github.com/nuncamaria"
+                        title="Github">Github</a>
                 </li>
-                <span>·</span>
+                <li aria-hidden="true">·</li>
                 <li>
-                    <a class="nav-link" target="_blank" href="https://www.linkedin.com/in/marianunezcanovas/"
-                        title="LinkedIn">LinkedIn</a>
+                    <a class="nav-link" target="_blank" rel="noopener noreferrer"
+                        href="https://www.linkedin.com/in/marianunezcanovas/" title="LinkedIn">LinkedIn</a>
                 </li>
             </ul>
-            <a class="nav-link" href="#header" title="Home">⌂</a>
+            <a class="nav-link" href="#header" title="Home" aria-label="Back to top">⌂</a>
         </nav>
     </footer>
 </body>

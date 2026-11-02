@@ -77,42 +77,103 @@ h3 {
   max-width: var(--general-max-width);
 }
 
+/* El borde existe siempre (transparente) para que el hover no mueva el contenido */
 .main .info {
   background-color: #f2f2f2;
+  border: 1px solid transparent;
   border-radius: 1rem;
   padding: 1rem;
+  transition: border-color 0.2s ease-in-out;
 }
 
 .main .info:hover {
-  border: thin solid #191919;
-  transition: ease-in-out 0.2s;
-}
-
-.main .info h2 {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  align-items: center;
+  border-color: #191919;
 }
 
 /* ACCORDION */
 
-.main .info h2 .accordion-arrow {
-  margin: 0rem 0.5rem;
-}
-
 .accordion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
 }
 
-.main .active {
+.accordion:focus-visible {
+  outline: 2px solid #191919;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}
+
+.accordion[aria-expanded="true"] {
   border-bottom: thin solid #191919;
 }
 
+.accordion-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Los corchetes se pintan con CSS para que no formen parte del texto del h2 */
+.accordion-title::before {
+  content: "<";
+  content: "<" / "";
+}
+
+.accordion-title::after {
+  content: ">";
+  content: ">" / "";
+}
+
+.accordion-arrow {
+  display: inline-block;
+  margin: 0 0.5rem;
+  transition: transform 0.25s ease;
+}
+
+.accordion[aria-expanded="true"] .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+/* Una sola regla .panel: sin margin ni display:none */
 .panel {
-  display: none;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.panel-inner {
   overflow: hidden;
-  margin: 1rem 0rem;
+  min-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s linear 0.25s;
+}
+
+.panel.is-open .panel-inner {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease 0.05s, visibility 0s;
+}
+
+/* El espaciado va en los hijos, no en el panel, para que cerrado mida 0 */
+.panel-inner > :first-child {
+  margin-top: 1rem;
+}
+
+.panel-inner > :last-child {
+  margin-bottom: 1rem;
 }
 
 /* /ACCORDION */
@@ -149,8 +210,15 @@ h3 {
   font-size: small;
 }
 
+/* Contraste mínimo AA (4,5:1) sobre el fondo claro */
 .main .info .p .caption {
-  color: grey;
+  color: #595959;
+  font-size: small;
+  font-style: italic;
+}
+
+.main .info .p #highlight {
+  color: #b3124f;
   font-size: small;
   font-style: italic;
 }
@@ -161,16 +229,18 @@ h3 {
 }
 
 .main #skills-grid {
-  display: grid;
-  grid: auto-flow / repeat(1, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1rem;
 }
 
 .main .info .skill {
+  flex: 1 1 45%;
   background-color: #ffec9e;
   border-radius: 0.5rem;
-  min-height: 200px;
+  min-height: auto;
+  min-width: 250px;
   padding: 0.5rem;
 }
 
@@ -208,6 +278,7 @@ body .footer .footer-nav .nav-menu {
   align-items: center;
   display: flex;
   gap: 0.5rem;
+  color: #f2f2f2;
 }
 
 .nav-link {
@@ -215,39 +286,13 @@ body .footer .footer-nav .nav-menu {
   padding: 0.5rem 0;
 }
 
-.back-button {
-  background: none;
-  text-align: start;
-}
-
 .nav-link:hover {
   font-weight: 600;
 }
 
-.back-button {
-  margin: 1rem 0;
-}
-
-.nav-back {
-  border: thin solid #191919;
-  border-radius: 2rem;
-  padding: 0.8rem 1.5rem;
-}
-
-.nav-back:hover {
-  background: #f2f2f2;
-}
-
-/* KEY FRAMES */
-
-@keyframes animateBgGradient {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 100% 0;
-  }
+.nav-link:focus-visible {
+  outline: 2px solid #f2f2f2;
+  outline-offset: 2px;
 }
 
 /* MEDIA QUERIES */
@@ -275,5 +320,18 @@ body .footer .footer-nav .nav-menu {
 
   .main #skills-grid {
     grid: auto-flow / repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+
+  .main .info,
+  .accordion-arrow,
+  .panel,
+  .panel-inner {
+    transition: none;
   }
 }

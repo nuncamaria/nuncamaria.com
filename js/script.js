@@ -1,22 +1,11 @@
-const accordion = document.getElementsByClassName("accordion");
-const kebabmenu = document.querySelector(".kebab-menu");
-const openMenu = document.querySelector(".open-menu");
+const accordions = document.querySelectorAll(".accordion");
 
-for (i = 0; i < accordion.length; i++) {
-    accordion[i].addEventListener("click", function () {
+accordions.forEach((button) => {
+  const panel = document.getElementById(button.getAttribute("aria-controls"));
 
-        this.classList.toggle("active");
-
-        const panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
-}
-
-kebabmenu.addEventListener("click", () => {
-    kebabmenu.classList.toggle("active");
-    openMenu.classList.toggle("active");
+  button.addEventListener("click", () => {
+    const isOpen = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!isOpen));
+    panel.classList.toggle("is-open", !isOpen);
+  });
 });
