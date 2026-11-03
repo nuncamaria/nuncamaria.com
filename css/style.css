@@ -16,7 +16,7 @@
   --background-color: #191919;
   --footer-h: 3.5rem;
   font-family: "Poppins", Helvetica, Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   scroll-behavior: smooth;
 }
 
@@ -67,7 +67,9 @@ h3 {
 }
 
 .header-info .about {
-  padding: 0 .1rem;
+  display: flex;
+  flex-flow: column wrap;
+  gap: 0.5rem;
 }
 
 .main {
@@ -320,7 +322,17 @@ body .footer .footer-nav .nav-menu {
 
 /* MEDIA QUERIES */
 
+@media (max-width: 767px) {
+  .main .info h2 {
+    font-size: 1.25rem;
+  }
+}
+
 @media (min-width: 768px) {
+
+  :root {
+    font-size: 18px;
+  }
 
   .header .title span {
     font-size: 2.5rem;
