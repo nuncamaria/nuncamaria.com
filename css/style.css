@@ -15,7 +15,7 @@
   --margin-centered: 0 auto;
   --background-color: #191919;
   --footer-h: 3.5rem;
-  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  font-family: "Manrope", Helvetica, Arial, sans-serif;
   font-size: 16px;
   scroll-behavior: smooth;
 }
@@ -29,7 +29,7 @@ body {
 }
 
 h3 {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .header {
@@ -53,17 +53,10 @@ h3 {
   display: flex;
   flex-flow: column wrap;
   font-size: 2.5rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 2.75rem;
   padding-block: 0.15em;
   margin-block: -0.15em;
-}
-
-.header-info .title span {
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 2.5rem;
-  padding: 0 .1rem;
 }
 
 .header-info .about {
@@ -108,17 +101,14 @@ h3 {
   font: inherit;
   text-align: left;
   cursor: pointer;
-  border-bottom: thin solid transparent;
-}
-
-.accordion:focus-visible {
-  outline: 2px solid #191919;
-  outline-offset: 4px;
-  border-radius: 0.5rem;
 }
 
 .accordion[aria-expanded="true"] {
-  border-bottom-color: #191919;
+   border-bottom: thin solid #191919;
+}
+
+.accordion[aria-expanded="true"] .accordion-label {
+    padding-bottom: 0.5rem;
 }
 
 .accordion-label {
@@ -332,12 +322,6 @@ body .footer .footer-nav .nav-menu {
 
   :root {
     font-size: 18px;
-  }
-
-  .header .title span {
-    font-size: 2.5rem;
-    line-height: 2.75rem;
-    padding: 0 .1rem;
   }
 
   .header .title {
