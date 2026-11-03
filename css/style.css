@@ -11,10 +11,10 @@
 
 :root {
   --primary-gradient: radial-gradient(circle at left top, #ffdd55, #ff39ad);
-  --padding-default: 1rem 0;
   --general-max-width: 900px;
   --margin-centered: 0 auto;
   --background-color: #191919;
+  --footer-h: 3.5rem;
   font-family: "Poppins", Helvetica, Arial, sans-serif;
   font-size: 18px;
   scroll-behavior: smooth;
@@ -22,9 +22,10 @@
 
 body {
   background: var(--background-color);
-  background-size: 200% 100%;
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 }
 
 h3 {
@@ -41,8 +42,8 @@ h3 {
 .header-info {
   display: flex;
   flex-flow: column wrap;
-  gap: 2rem;
-  padding: 2rem 1rem;
+  gap: 1rem;
+  padding: .75rem 1rem;
 }
 
 .header-info .title {
@@ -51,43 +52,45 @@ h3 {
   -webkit-text-fill-color: transparent;
   display: flex;
   flex-flow: column wrap;
-  grid-area: title;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 500;
-  line-height: 2.5rem;
+  line-height: 2.75rem;
+  padding-block: 0.15em;
+  margin-block: -0.15em;
 }
 
 .header-info .title span {
   font-size: 2rem;
   font-weight: 500;
+  line-height: 2.5rem;
   padding: 0 .1rem;
 }
 
 .header-info .about {
-  grid-area: about;
   padding: 0 .1rem;
 }
 
 .main {
   display: flex;
   flex-flow: column wrap;
-  gap: 2rem;
+  gap: 1rem;
   margin: var(--margin-centered);
   padding: 0rem 1rem 2rem 1rem;
   max-width: var(--general-max-width);
 }
 
-/* El borde existe siempre (transparente) para que el hover no mueva el contenido */
 .main .info {
   background-color: #f2f2f2;
   border: 1px solid transparent;
   border-radius: 1rem;
-  padding: 1rem;
+  padding: .75rem 1rem;
   transition: border-color 0.2s ease-in-out;
 }
 
-.main .info:hover {
-  border-color: #191919;
+@media (hover: hover) {
+  .main .info:hover {
+    border-color: #191919;
+  }
 }
 
 /* ACCORDION */
@@ -103,6 +106,7 @@ h3 {
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-bottom: thin solid transparent;
 }
 
 .accordion:focus-visible {
@@ -112,24 +116,13 @@ h3 {
 }
 
 .accordion[aria-expanded="true"] {
-  border-bottom: thin solid #191919;
+  border-bottom-color: #191919;
 }
 
 .accordion-label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-/* Los corchetes se pintan con CSS para que no formen parte del texto del h2 */
-.accordion-title::before {
-  content: "<";
-  content: "<" / "";
-}
-
-.accordion-title::after {
-  content: ">";
-  content: ">" / "";
+  gap: 1rem;
 }
 
 .accordion-arrow {
@@ -138,18 +131,23 @@ h3 {
   transition: transform 0.25s ease;
 }
 
+.accordion-arrow svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
 .accordion[aria-expanded="true"] .accordion-arrow {
   transform: rotate(180deg);
 }
 
-/* Una sola regla .panel: sin margin ni display:none */
 .panel {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.25s ease;
 }
 
-.panel.is-open {
+h2:has(> .accordion[aria-expanded="true"])+.panel {
   grid-template-rows: 1fr;
 }
 
@@ -161,19 +159,39 @@ h3 {
   transition: opacity 0.2s ease, visibility 0s linear 0.25s;
 }
 
-.panel.is-open .panel-inner {
+h2:has(> .accordion[aria-expanded="true"])+.panel .panel-inner {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.2s ease 0.05s, visibility 0s;
 }
 
-/* El espaciado va en los hijos, no en el panel, para que cerrado mida 0 */
-.panel-inner > :first-child {
+.panel-inner> :first-child {
   margin-top: 1rem;
 }
 
-.panel-inner > :last-child {
+.panel-inner> :last-child {
   margin-bottom: 1rem;
+}
+
+/* Mejora progresiva: sin JS o sin :has() todo el contenido queda visible */
+html:not(.js) .panel {
+  grid-template-rows: 1fr;
+}
+
+html:not(.js) .panel-inner {
+  opacity: 1;
+  visibility: visible;
+}
+
+@supports not selector(:has(*)) {
+  .panel {
+    grid-template-rows: 1fr;
+  }
+
+  .panel-inner {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 /* /ACCORDION */
@@ -207,19 +225,18 @@ h3 {
 }
 
 .main .info .p .company-info {
-  font-size: small;
+  font-size: 0.875rem;
 }
 
-/* Contraste mínimo AA (4,5:1) sobre el fondo claro */
 .main .info .p .caption {
   color: #595959;
-  font-size: small;
+  font-size: 0.875rem;
   font-style: italic;
 }
 
 .main .info .p #highlight {
   color: #b3124f;
-  font-size: small;
+  font-size: 0.875rem;
   font-style: italic;
 }
 
@@ -229,18 +246,14 @@ h3 {
 }
 
 .main #skills-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.5rem;
-  margin-top: 1rem;
 }
 
 .main .info .skill {
-  flex: 1 1 45%;
   background-color: #ffec9e;
   border-radius: 0.5rem;
-  min-height: auto;
-  min-width: 250px;
   padding: 0.5rem;
 }
 
@@ -249,17 +262,13 @@ h3 {
   text-decoration: underline;
 }
 
-.main #education {
-  margin-bottom: 5rem;
-}
-
 .footer {
   background-color: #191919;
   bottom: 0;
   border-top: thin solid grey;
   position: fixed;
-  margin: var(--margin-centered);
   width: 100%;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body .footer .footer-nav {
@@ -268,10 +277,19 @@ body .footer .footer-nav {
   max-width: var(--general-max-width);
   margin: var(--margin-centered);
   padding: 0 1rem;
+  align-items: center;
+  min-height: var(--footer-h);
 }
 
 body .footer .footer-nav>.nav-link {
-  font-size: 20pt;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link svg {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 body .footer .footer-nav .nav-menu {
@@ -287,7 +305,12 @@ body .footer .footer-nav .nav-menu {
 }
 
 .nav-link:hover {
-  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.nav-link:hover svg {
+  opacity: 0.75;
 }
 
 .nav-link:focus-visible {
@@ -299,19 +322,15 @@ body .footer .footer-nav .nav-menu {
 
 @media (min-width: 768px) {
 
-  .header {
-    position: relative;
-  }
-
   .header .title span {
-    font-size: 3rem;
-    line-height: 3.2rem;
+    font-size: 2.5rem;
+    line-height: 2.75rem;
     padding: 0 .1rem;
   }
 
   .header .title {
-    font-size: 4.5rem;
-    line-height: 4.2rem;
+    font-size: 3rem;
+    line-height: 3.2rem;
   }
 
   .header-info .about {
@@ -319,7 +338,7 @@ body .footer .footer-nav .nav-menu {
   }
 
   .main #skills-grid {
-    grid: auto-flow / repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -333,5 +352,24 @@ body .footer .footer-nav .nav-menu {
   .panel,
   .panel-inner {
     transition: none;
+  }
+}
+
+@media print {
+  .panel {
+    grid-template-rows: 1fr;
+  }
+
+  .panel-inner {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .footer {
+    display: none;
+  }
+
+  body {
+    padding-bottom: 0;
   }
 }

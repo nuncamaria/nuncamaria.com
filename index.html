@@ -3,10 +3,18 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description"
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer. Portfolio and CV of María Núñez.">
+    <meta name="theme-color" content="#191919">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="María Núñez | UI/UX Designer &amp; Android Developer">
+    <meta property="og:description"
+        content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer.">
+    <meta property="og:locale" content="en_US">
+    <!-- TODO: añadir og:image (1200x630, URL absoluta) y og:url cuando existan -->
+    <script>document.documentElement.classList.add("js")</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,27 +34,31 @@
                 María Núñez.
             </h1>
 
-            <article class="about">
+            <div class="about">
                 <p>Graphic designer specialized in UI/UX with +3 years of experience as an Android developer.</p>
                 <p>I design digital solutions with a developer's perspective.</p>
                 <p>I'm a curious, grounded person who cares about people.</p>
-            </article>
+            </div>
         </div>
     </header>
 
     <main class="main">
-        <section class="info" id="about-me" aria-label="about me">
-            <h2>
-                <button class="accordion" type="button" id="about-me-btn" aria-expanded="true"
+        <section class="info" id="about-me" aria-labelledby="about-me-title">
+            <h2 id="about-me-title">
+                <button class="accordion" type="button" id="about-me-btn" aria-expanded="false"
                     aria-controls="about-me-panel">
                     <span class="accordion-label">
                         <span aria-hidden="true">👀</span>
                         <span class="accordion-title">About me</span>
                     </span>
-                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                    <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            focusable="false">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg></span>
                 </button>
             </h2>
-            <article class="panel is-open" id="about-me-panel" role="region" aria-labelledby="about-me-btn">
+            <div class="panel" id="about-me-panel">
                 <div class="panel-inner">
                     <p class="p">
                         I started in illustration and graphic design, where I learned to approach problems visually and
@@ -75,21 +87,25 @@
                         </ul>
                     </div>
                 </div>
-            </article>
+            </div>
         </section>
 
-        <section class="info" id="experience" aria-label="experience">
-            <h2>
+        <section class="info" id="experience" aria-labelledby="experience-title">
+            <h2 id="experience-title">
                 <button class="accordion" type="button" id="experience-btn" aria-expanded="false"
                     aria-controls="experience-panel">
                     <span class="accordion-label">
                         <span aria-hidden="true">🚀</span>
                         <span class="accordion-title">Experience</span>
                     </span>
-                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                    <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            focusable="false">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg></span>
                 </button>
             </h2>
-            <article class="panel" id="experience-panel" role="region" aria-labelledby="experience-btn">
+            <div class="panel" id="experience-panel">
                 <div class="panel-inner">
                     <div class="p">
                         <h3 class="job-position">
@@ -151,25 +167,29 @@
                         </ul>
                     </div>
                 </div>
-            </article>
+            </div>
         </section>
 
-        <section class="info" id="skills" aria-label="skills">
-            <h2>
+        <section class="info" id="skills" aria-labelledby="skills-title">
+            <h2 id="skills-title">
                 <button class="accordion" type="button" id="skills-btn" aria-expanded="false"
                     aria-controls="skills-panel">
                     <span class="accordion-label">
                         <span aria-hidden="true">🔎</span>
                         <span class="accordion-title">Skills</span>
                     </span>
-                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                    <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            focusable="false">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg></span>
                 </button>
             </h2>
-            <article class="panel" id="skills-panel" role="region" aria-labelledby="skills-btn">
+            <div class="panel" id="skills-panel">
                 <div class="panel-inner">
                     <div id="skills-grid">
                         <div class="skill">
-                            <h3>&lt;Design skills&gt;</h3>
+                            <h3 class="tag-title">Design skills</h3>
                             <p>Graphic Design</p>
                             <p>UI Design (Web / Mobile)</p>
                             <p>UX Design &amp; Research</p>
@@ -178,7 +198,7 @@
                         </div>
 
                         <div class="skill">
-                            <h3>&lt;Design stack&gt;</h3>
+                            <h3 class="tag-title">Design stack</h3>
                             <p>Figma</p>
                             <p>Photoshop</p>
                             <p>Illustrator</p>
@@ -187,7 +207,7 @@
                         </div>
 
                         <div class="skill">
-                            <h3>&lt;Development practices&gt;</h3>
+                            <h3 class="tag-title">Development practices</h3>
                             <p>SOLID principles</p>
                             <p>Clean architecture</p>
                             <p>MVVM</p>
@@ -197,7 +217,7 @@
                         </div>
 
                         <div class="skill">
-                            <h3>&lt;Development stack&gt;</h3>
+                            <h3 class="tag-title">Development stack</h3>
                             <p>Kotlin</p>
                             <p>Jetpack Compose || XML</p>
                             <p>Koin || Dagger Hilt</p>
@@ -209,27 +229,31 @@
                         </div>
 
                         <div class="skill">
-                            <h3>&lt;Languages&gt;</h3>
+                            <h3 class="tag-title">Languages</h3>
                             <p>Spanish - Native</p>
                             <p>English - Professional working proficiency</p>
                         </div>
                     </div>
                 </div>
-            </article>
+            </div>
         </section>
 
-        <section class="info" id="projects" aria-label="projects">
-            <h2>
+        <section class="info" id="projects" aria-labelledby="projects-title">
+            <h2 id="projects-title">
                 <button class="accordion" type="button" id="projects-btn" aria-expanded="false"
                     aria-controls="projects-panel">
                     <span class="accordion-label">
                         <span aria-hidden="true">🤖</span>
                         <span class="accordion-title">Projects</span>
                     </span>
-                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                    <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            focusable="false">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg></span>
                 </button>
             </h2>
-            <article class="panel" id="projects-panel" role="region" aria-labelledby="projects-btn">
+            <div class="panel" id="projects-panel">
                 <div class="panel-inner">
                     <div class="p">
                         <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
@@ -244,21 +268,25 @@
                         <p class="caption">Data Base with Room</p>
                     </div>
                 </div>
-            </article>
+            </div>
         </section>
 
-        <section class="info" id="education" aria-label="education">
-            <h2>
+        <section class="info" id="education" aria-labelledby="education-title">
+            <h2 id="education-title">
                 <button class="accordion" type="button" id="education-btn" aria-expanded="false"
                     aria-controls="education-panel">
                     <span class="accordion-label">
                         <span aria-hidden="true">📚</span>
                         <span class="accordion-title">Education</span>
                     </span>
-                    <span class="accordion-arrow" aria-hidden="true">▾</span>
+                    <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            focusable="false">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg></span>
                 </button>
             </h2>
-            <article class="panel" id="education-panel" role="region" aria-labelledby="education-btn">
+            <div class="panel" id="education-panel">
                 <div class="panel-inner">
                     <div class="p">
                         <h3 class="job-position">UI/UX Master <span>at LaBasad</span></h3>
@@ -279,7 +307,7 @@
                         <p class="caption">September 2015 - July 2018, on-site in Murcia</p>
                     </div>
                 </div>
-            </article>
+            </div>
         </section>
     </main>
 
@@ -296,7 +324,13 @@
                         href="https://www.linkedin.com/in/marianunezcanovas/" title="LinkedIn">LinkedIn</a>
                 </li>
             </ul>
-            <a class="nav-link" href="#header" title="Home" aria-label="Back to top">⌂</a>
+            <a class="nav-link" href="#header" title="Back to top" aria-label="Back to top">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <path d="M3 11.5 12 4l9 7.5" />
+                    <path d="M5 10v10h5v-6h4v6h5V10" />
+                </svg>
+            </a>
         </nav>
     </footer>
 </body>
