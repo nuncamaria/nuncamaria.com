@@ -116,7 +116,7 @@ function updateActiveLink() {
   if (spyFrame !== null) return;
   spyFrame = requestAnimationFrame(() => {
     spyFrame = null;
-    setActiveLink(findCurrentLink());
+    if (navLock === null) setActiveLink(findCurrentLink());
   });
 }
 

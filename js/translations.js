@@ -6,7 +6,8 @@ const translationsEs = {
   "lang.switch": "Cambiar a inglés (EN)",
   "lang.target": "EN",
 
-  "header.title": "Hola, soy María Núñez. 👋",
+  "header.greeting": "Hola 👋",
+  "header.name": "Soy María Núñez",
   "header.summary":
     "Diseñadora gráfica especializada en UI/UX con más de 3 años de experiencia como desarrolladora Android.",
   "header.location": "Vivo en Murcia, España. ☀",

@@ -11,9 +11,15 @@
 
 :root {
   --primary-color: #ffcc00;
+  /* Color de cada sección: lo comparten su encabezado y su pill */
+  --color-about: #fb4a4a;
+  --color-experience: #7EBC89;
+  --color-skills: #FFCC00;
+  --color-projects: #444140;
+  --color-education: #0496FF;
   --general-max-width: 900px;
   --margin-centered: 0 auto;
-  --background-color: #161010;
+  --background-color: #141414;
   --pill-h: 2.5rem;
   --bottom-nav-h: calc(var(--pill-h) + 1rem + 1px);
   font-family: "Manrope", Helvetica, Arial, sans-serif;
@@ -39,7 +45,7 @@ h4 {
   color: #fff;
   margin: var(--margin-centered);
   max-width: var(--general-max-width);
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
 }
 
 .header-info {
@@ -158,11 +164,20 @@ html:not(.js) .lang-toggle {
   -webkit-text-fill-color: transparent;
   display: flex;
   flex-flow: column wrap;
-  font-size: 2.5rem;
+  /* Tamaño del nombre: crece con la pantalla para caber en una línea en móvil */
+  font-size: clamp(2rem, 9.5vw, 3.75rem);
   font-weight: 600;
-  line-height: 2.75rem;
+  line-height: 1.15;
   padding-block: 0.15em;
   margin-block: -0.15em;
+}
+
+.title span {
+  font-weight: inherit;
+}
+
+.title-greeting {
+  font-size: 0.8em;
 }
 
 .header-info .about {
@@ -174,34 +189,69 @@ html:not(.js) .lang-toggle {
 .main {
   display: flex;
   flex-flow: column wrap;
-  gap: 1rem;
+  gap: 2rem;
   margin: var(--margin-centered);
   padding: 0rem 1rem 2rem 1rem;
   max-width: var(--general-max-width);
 }
 
+/* Cada sección son dos cards: encabezado de color y contenido en blanco */
 .main .info {
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 1rem;
-  padding: .75rem 1rem;
-  transition: border-color 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-@media (hover: hover) {
-  .main .info:hover {
-    border-color: #161010;
-  }
+#about-me {
+  --section-color: var(--color-about);
+}
+
+#experience {
+  --section-color: var(--color-experience);
+}
+
+#skills {
+  --section-color: var(--color-skills);
+}
+
+#projects {
+  --section-color: var(--color-projects);
+}
+
+#education {
+  --section-color: var(--color-education);
 }
 
 /* CARD */
 
 .card-title {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: thin solid #161010;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 1.25rem 1rem;
+  border-radius: 1rem;
+  background-color: var(--section-color);
+  color: #141414;
+  /* Texto negro o blanco según la luminosidad del color de la sección */
+  color: lch(from var(--section-color) calc((49.44 - l) * infinity) 0 0);
+  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.card-body {
+  padding-inline: 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
+}
+
+.card-title span {
+  font-weight: inherit;
+}
+
+.card-title span:first-child {
+  font-size: 0.75em;
 }
 
 /* ACCORDION SKILL */
@@ -221,7 +271,7 @@ html:not(.js) .lang-toggle {
 }
 
 .accordion[aria-expanded="true"] {
-  border-bottom: thin solid #161010;
+  border-bottom: thin solid #141414;
 }
 
 .accordion-label {
@@ -404,23 +454,23 @@ html:not(.js) .panel-inner {
 
 /* Botton nav item */
 .bottom-nav li:nth-child(1) a {
-  --pill: #E54B4B;
+  --pill: var(--color-about);
 }
 
 .bottom-nav li:nth-child(2) a {
-  --pill: #7EBC89;
+  --pill: var(--color-experience);
 }
 
 .bottom-nav li:nth-child(3) a {
-  --pill: #FFCC00;
+  --pill: var(--color-skills);
 }
 
 .bottom-nav li:nth-child(4) a {
-  --pill: #444140;
+  --pill: var(--color-projects);
 }
 
 .bottom-nav li:nth-child(5) a {
-  --pill: #0496FF;
+  --pill: var(--color-education);
 }
 
 .bottom-nav a {
@@ -438,14 +488,10 @@ html:not(.js) .panel-inner {
   line-height: 1;
 }
 
-@media (hover: hover) {
-  .bottom-nav a:hover {
-    filter: brightness(1.15);
-  }
-}
-
 .bottom-nav a[aria-current="location"] {
-  filter: brightness(1.25);
+  background-color: var(--background-color);
+  color: #fff;
+  box-shadow: inset 0 0 0 2px var(--pill);
 }
 
 /* FOOTER */
@@ -486,10 +532,6 @@ html:not(.js) .panel-inner {
 /* MEDIA QUERIES */
 
 @media (max-width: 767px) {
-  .main .info h2 {
-    font-size: 1.25rem;
-  }
-
   .bottom-nav {
     padding: 0.75rem 0 1.75rem;
   }
@@ -523,11 +565,6 @@ html:not(.js) .panel-inner {
     padding: 1rem;
   }
 
-  .header .title {
-    font-size: 3rem;
-    line-height: 3.2rem;
-  }
-
   .header-info .about {
     padding: 0 .2rem;
   }
@@ -542,7 +579,6 @@ html:not(.js) .panel-inner {
     scroll-behavior: auto;
   }
 
-  .main .info,
   .lang-toggle,
   .accordion-arrow,
   .panel,
