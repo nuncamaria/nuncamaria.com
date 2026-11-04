@@ -11,7 +11,6 @@
 
 :root {
   --primary-color: #ffcc00;
-  /* Color de cada sección: lo comparten su encabezado y su pill */
   --color-about: #fb4a4a;
   --color-experience: #7EBC89;
   --color-skills: #FFCC00;
@@ -22,6 +21,7 @@
   --background-color: #272727;
   --on-background: #f2f2f2;
   --surface-color: #f2f2f2;
+  --divider-color: #cfcfcf;
   --pill-h: 2.5rem;
   --bottom-nav-h: calc(var(--pill-h) + 1rem + 1px);
   font-family: "Manrope", Helvetica, Arial, sans-serif;
@@ -326,22 +326,41 @@ html:not(.js) .lang-toggle {
   margin-top: 0.5rem;
 }
 
-/* Sumado al padding de .p, deja 2rem entre un trabajo y el siguiente */
-.main #experience .card-body>.p+.p {
-  margin-top: 0.8rem;
+.main #experience .card-body>.p+.p,
+.main #projects .card-body>.p+.p,
+.main #education .card-body>.p+.p {
+  margin-top: 0.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--divider-color);
 }
 
 /* SKILLS */
 
 .skills-cards {
+  margin-inline: -1rem;
+  padding-inline: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 1rem;
+  scrollbar-width: none;
+}
+
+.skills-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.skills-cards-inner {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
+  width: max-content;
+  min-width: 100%;
 }
 
 .skills-cards:focus-visible {
   outline: 2px solid var(--on-background);
-  outline-offset: 2px;
+  outline-offset: -2px;
   border-radius: 1rem;
 }
 
@@ -352,6 +371,7 @@ html:not(.js) .lang-toggle {
   padding: 1.25rem 1rem;
   border-radius: 1rem;
   background-color: var(--surface-color);
+  scroll-snap-align: start;
 }
 
 .skill-card-title {
@@ -533,31 +553,6 @@ html:not(.js) .lang-toggle {
     flex: 0 0 clamp(7.5rem, 38vw, 11rem);
     scroll-snap-align: start;
   }
-
-  /* El ancho deja asomar la segunda card para indicar que hay scroll */
-  .skills-cards {
-    display: flex;
-    margin-inline: -1rem;
-    padding-inline: 1rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: 1rem;
-    scrollbar-width: none;
-  }
-
-  .skills-cards::-webkit-scrollbar {
-    display: none;
-  }
-
-  .skills-cards:focus-visible {
-    outline-offset: -2px;
-  }
-
-  .skill-card {
-    flex: 0 0 78%;
-    scroll-snap-align: start;
-  }
 }
 
 @media (min-width: 768px) {
@@ -592,10 +587,14 @@ html:not(.js) .lang-toggle {
   }
 
   .skills-cards {
-    display: grid;
     margin-inline: 0;
     padding-inline: 0;
     overflow: visible;
+  }
+
+  .skills-cards-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: auto;
   }
 
   .bottom-nav,
