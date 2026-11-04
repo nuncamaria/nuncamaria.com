@@ -146,10 +146,52 @@ setInterval(showNextBrandWord, BRAND_INTERVAL_MS);
 const cursor = document.createElement("div");
 cursor.className = "cursor";
 cursor.setAttribute("aria-hidden", "true");
+cursor.innerHTML = '<svg viewBox="0 0 100 100" focusable="false"><path></path></svg>';
 document.body.append(cursor);
+
+const cursorPath = cursor.querySelector("path");
+const CURSOR_POINTS = 72;
+const CURSOR_RADIUS = 48;
 
 let cursorX = 0;
 let cursorY = 0;
+let cursorWaveRunning = false;
+
+// Suma varias ondas que avanzan a distinto ritmo para que el temblor no parezca repetitivo.
+function drawCursorWave(time) {
+  const t = time / 1000;
+  let path = "";
+  for (let i = 0; i < CURSOR_POINTS; i++) {
+    const angle = (i / CURSOR_POINTS) * Math.PI * 2;
+    const radius =
+      CURSOR_RADIUS +
+      1.6 * Math.sin(3 * angle + t * 2.4) +
+      1 * Math.sin(5 * angle - t * 3.7) +
+      0.5 * Math.sin(8 * angle + t * 5.3);
+    const x = 50 + radius * Math.cos(angle);
+    const y = 50 + radius * Math.sin(angle);
+    path += `${i ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`;
+  }
+  cursorPath.setAttribute("d", `${path}Z`);
+}
+
+// Solo anima mientras el cursor se ve. Con movimiento reducido, la forma queda quieta.
+function animateCursorWave(time) {
+  if (!root.classList.contains("has-cursor") || reducedMotion.matches) {
+    cursorWaveRunning = false;
+    return;
+  }
+  drawCursorWave(time);
+  requestAnimationFrame(animateCursorWave);
+}
+
+function startCursorWave() {
+  if (cursorWaveRunning || reducedMotion.matches) return;
+  cursorWaveRunning = true;
+  requestAnimationFrame(animateCursorWave);
+}
+
+drawCursorWave(0);
 
 function hideCursor() {
   root.classList.remove("has-cursor");
@@ -180,6 +222,7 @@ function moveCursor(event) {
   cursor.style.translate = `${cursorX}px ${cursorY}px`;
   updateCursorMode(event.target);
   root.classList.add("has-cursor");
+  startCursorWave();
 }
 
 // Al hacer scroll sin mover el ratón, lo que hay debajo del cursor también cambia.
