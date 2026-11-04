@@ -9,7 +9,7 @@ accordions.forEach((button) => {
 
 function openFromHash() {
   const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-  const button = target && target.querySelector(".accordion");
+  const button = target && target.querySelector(":scope > h3 > .accordion");
   if (button) button.setAttribute("aria-expanded", "true");
 }
 
