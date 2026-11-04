@@ -51,9 +51,8 @@ h4 {
 }
 
 .brand {
-  font-size: 1.25rem;
-  font-weight: 800;
-  line-height: 1;
+  font-size: .75rem;
+  font-weight: 200;
 }
 
 .header-info .title {
@@ -290,7 +289,7 @@ html:not(.js) .panel-inner {
   z-index: 10;
   background-color: var(--background-color);
   border-top: thin solid #f2f2f2;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
 }
 
 .bottom-nav ul {
@@ -404,8 +403,8 @@ html:not(.js) .panel-inner {
     font-size: 18px;
   }
 
-  .bottom-nav ul {
-    gap: 0.5rem;
+  .bottom-nav {
+    padding: 1rem;
   }
 
   .header .title {
