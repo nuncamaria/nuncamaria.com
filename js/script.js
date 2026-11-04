@@ -60,3 +60,73 @@ document.getElementById("lang-toggle").addEventListener("click", () => {
     // Sin almacenamiento el cambio funciona igual, pero no se recuerda.
   }
 });
+
+// BOTTOM NAV: marca la sección visible y desplaza la barra hasta su pill.
+
+const navList = document.querySelector(".bottom-nav ul");
+const navItems = [...navList.querySelectorAll("a")].map((link) => ({
+  link,
+  section: document.querySelector(link.hash),
+}));
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const NAV_LOCK_MS = 200;
+
+let activeLink = null;
+let navLock = null;
+let spyFrame = null;
+
+function setActiveLink(link) {
+  if (link === activeLink) return;
+  activeLink?.removeAttribute("aria-current");
+  activeLink = link;
+  link?.setAttribute("aria-current", "location");
+
+  const left = link
+    ? link.getBoundingClientRect().left -
+      navList.getBoundingClientRect().left +
+      navList.scrollLeft -
+      parseFloat(getComputedStyle(navList).paddingLeft)
+    : 0;
+  navList.scrollTo({ left, behavior: reducedMotion.matches ? "auto" : "smooth" });
+}
+
+function findCurrentLink() {
+  // La última sección puede no llegar arriba del todo: al final de la página, gana ella.
+  const atPageEnd = window.innerHeight + window.scrollY >= root.scrollHeight - 2;
+  if (atPageEnd) return navItems[navItems.length - 1].link;
+
+  const line = window.innerHeight / 3;
+  const current = navItems.findLast(({ section }) => section.getBoundingClientRect().top <= line);
+  return current ? current.link : null;
+}
+
+// Tras pulsar una pill, se respeta esa elección hasta que termina el scroll del ancla.
+function holdNavLock() {
+  clearTimeout(navLock);
+  navLock = setTimeout(() => {
+    navLock = null;
+  }, NAV_LOCK_MS);
+}
+
+function updateActiveLink() {
+  if (navLock !== null) {
+    holdNavLock();
+    return;
+  }
+  if (spyFrame !== null) return;
+  spyFrame = requestAnimationFrame(() => {
+    spyFrame = null;
+    setActiveLink(findCurrentLink());
+  });
+}
+
+navItems.forEach(({ link }) => {
+  link.addEventListener("click", () => {
+    setActiveLink(link);
+    holdNavLock();
+  });
+});
+
+window.addEventListener("scroll", updateActiveLink, { passive: true });
+window.addEventListener("resize", updateActiveLink);
+updateActiveLink();

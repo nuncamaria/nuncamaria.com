@@ -105,8 +105,8 @@ h4 {
 }
 
 .lang-toggle:focus-visible {
-  outline: 2px solid #f2f2f2;
-  outline-offset: 2px;
+  outline: thin solid #f2f2f2;
+  outline-offset: 1px;
 }
 
 html:not(.js) .lang-toggle {
@@ -387,17 +387,16 @@ html:not(.js) .panel-inner {
 .bottom-nav a {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 1rem 0.25rem;
+  justify-content: flex-start;
+  padding: 1rem;
   border-radius: .75rem;
   background-color: var(--pill);
   color: var(--background-color);
   /* Texto negro o blanco según la luminosidad de --pill (49.44 = umbral de igual contraste) */
   color: lch(from var(--pill) calc((49.44 - l) * infinity) 0 0);
-  font-size: clamp(0.6rem, 3vw, 0.75rem);
+  font-size: 0.75rem;
   font-weight: 600;
   line-height: 1;
-  text-align: center;
 }
 
 @media (hover: hover) {
@@ -407,12 +406,7 @@ html:not(.js) .panel-inner {
 }
 
 .bottom-nav a[aria-current="location"] {
-  box-shadow: 0 0 0 2px #fff;
-}
-
-.bottom-nav a:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
+  filter: brightness(1.25);
 }
 
 /* FOOTER */
@@ -446,8 +440,8 @@ html:not(.js) .panel-inner {
 }
 
 .footer a:focus-visible {
-  outline: 2px solid #f2f2f2;
-  outline-offset: 2px;
+  outline: thin solid #f2f2f2;
+  outline-offset: 1px;
 }
 
 /* MEDIA QUERIES */
@@ -455,6 +449,30 @@ html:not(.js) .panel-inner {
 @media (max-width: 767px) {
   .main .info h2 {
     font-size: 1.25rem;
+  }
+
+  /* El padding lateral pasa a la lista para que las pills lleguen al borde al hacer scroll */
+  .bottom-nav {
+    padding: 0.75rem 0 1.75rem;
+  }
+
+  .bottom-nav ul {
+    padding: 0.25rem 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+
+  .bottom-nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Ancho pensado para que siempre asome parte de la siguiente pill */
+  .bottom-nav li {
+    flex: 0 0 clamp(7.5rem, 38vw, 11rem);
+    scroll-snap-align: start;
   }
 }
 
