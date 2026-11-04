@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description"
+    <meta name="description" data-i18n-content="meta.description"
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer. Portfolio and CV of María Núñez.">
     <meta name="theme-color" content="#191919">
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
@@ -14,26 +14,66 @@
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer.">
     <meta property="og:locale" content="en_US">
     <!-- TODO: añadir og:image (1200x630, URL absoluta) y og:url cuando existan -->
-    <script>document.documentElement.classList.add("js")</script>
+    <script>
+        (function () {
+            var root = document.documentElement;
+            root.classList.add("js");
+
+            var lang = null;
+            try {
+                var saved = localStorage.getItem("lang");
+                if (saved === "es" || saved === "en") lang = saved;
+            } catch (e) { }
+
+            var preferred = navigator.languages && navigator.languages.length
+                ? navigator.languages
+                : [navigator.language || "en"];
+            for (var i = 0; !lang && i < preferred.length; i++) {
+                var code = preferred[i].slice(0, 2).toLowerCase();
+                if (code === "es" || code === "en") lang = code;
+            }
+
+            root.lang = lang || "en";
+
+            // Evita ver el inglés un instante; el temporizador muestra la página aunque falle el JS.
+            if (root.lang === "es") {
+                root.classList.add("i18n-pending");
+                setTimeout(function () { root.classList.remove("i18n-pending"); }, 1500);
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" />
-    <title>María Núñez | UI/UX Designer &amp; Android Developer</title>
+    <title data-i18n="meta.title">María Núñez | UI/UX Designer &amp; Android Developer</title>
+    <script src="./js/translations.js" defer></script>
     <script src="./js/script.js" defer></script>
 </head>
 
 <body>
     <header class="header" id="header">
         <div class="header-info">
-            <p class="brand">nunca / a veces / siempre soy -> maria</p>
-            <h1 class="title">Hi, I'm María Núñez. 👋</h1>
+            <div class="header-top">
+                <p class="brand">nunca / a veces / siempre soy -> maria</p>
+                <button class="lang-toggle" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
+                    title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" focusable="false" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M2 12h20" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                    <span data-i18n="lang.target">ES</span>
+                </button>
+            </div>
+            <h1 class="title" data-i18n="header.title">Hi, I'm María Núñez. 👋</h1>
 
             <div class="about">
-                <p>Graphic designer specialized in UI/UX with +3 years of experience as an Android developer.</p>
-                <p>Based in Murcia, Spain. ☀ </p>
-                <p>I design digital solutions with a developer's perspective.</p>
-                <p>I'm a curious, grounded person who cares about people.</p>
+                <p data-i18n="header.summary">Graphic designer specialized in UI/UX with +3 years of experience as an Android developer.</p>
+                <p data-i18n="header.location">Based in Murcia, Spain. ☀ </p>
+                <p data-i18n="header.approach">I design digital solutions with a developer's perspective.</p>
+                <p data-i18n="header.person">I'm a curious, grounded person who cares about people.</p>
             </div>
         </div>
     </header>
@@ -42,34 +82,34 @@
         <section class="info" id="about-me" aria-labelledby="about-me-title">
             <h2 class="card-title" id="about-me-title">
                 <span aria-hidden="true">👀</span>
-                <span>About me</span>
+                <span data-i18n="about.title">About me</span>
             </h2>
             <div class="card-body">
-                <p class="p">
+                <p class="p" data-i18n="about.p1">
                     I started in illustration and graphic design, where I learned to approach problems visually and
                     from unexpected angles.
                 </p>
-                <p class="p">
+                <p class="p" data-i18n="about.p2">
                     Curious about how interfaces are built, I moved into front-end development and then Android,
                     where I worked for three years in Kotlin and Jetpack Compose.
                 </p>
-                <p class="p">
+                <p class="p" data-i18n="about.p3">
                     Today I bring both sides together in UI/UX, designing with an understanding of how things get
                     built.
                 </p>
-                <p class="p">
+                <p class="p" data-i18n="about.p4">
                     I believe people are in the world to observe and listen. That's how I see life. After that, we
                     can figure out what to do with it. I care about people and the problems we go through and I try to
                     come up with solutions in line with my values.
                 </p>
                 <div class="p" id="hobbies">
-                    <p class="caption">Away from the screen:</p>
+                    <p class="caption" data-i18n="about.hobbies">Away from the screen:</p>
                     <ul class="hobbies">
-                        <li>🧗‍♂️ Climbing</li>
-                        <li>⛰️ Hiking</li>
-                        <li>🎨 Drawing</li>
-                        <li>🤸‍♀️ Dancing</li>
-                        <li>🧘‍♂️ Meditation</li>
+                        <li>🧗‍♂️ <span data-i18n="hobby.climbing">Climbing</span></li>
+                        <li>⛰️ <span data-i18n="hobby.hiking">Hiking</span></li>
+                        <li>🎨 <span data-i18n="hobby.drawing">Drawing</span></li>
+                        <li>🤸‍♀️ <span data-i18n="hobby.dancing">Dancing</span></li>
+                        <li>🧘‍♂️ <span data-i18n="hobby.meditation">Meditation</span></li>
                     </ul>
                 </div>
             </div>
@@ -78,66 +118,66 @@
         <section class="info" id="experience" aria-labelledby="experience-title">
             <h2 class="card-title" id="experience-title">
                 <span aria-hidden="true">🚀</span>
-                <span>Experience</span>
+                <span data-i18n="experience.title">Experience</span>
             </h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position">
-                        Graphic Designer
-                        <span>at Sindicato de Vivienda de Murcia</span>
+                        <span data-i18n="role.graphicDesigner">Graphic Designer</span>
+                        <span data-i18n="sindicato.company">at Sindicato de Vivienda de Murcia</span>
                     </h3>
-                    <p class="caption" id="highlight">Volunteer · Nonprofit</p>
-                    <p class="caption">2025 - Present</p>
-                    <p class="company-info">
+                    <p class="caption" id="highlight" data-i18n="sindicato.type">Volunteer · Nonprofit</p>
+                    <p class="caption" data-i18n="sindicato.dates">2025 - Present</p>
+                    <p class="company-info" data-i18n="sindicato.info">
                         A nonprofit community organization focused on housing rights.
                     </p>
-                    <p class="caption">tasks:</p>
+                    <p class="caption" data-i18n="experience.tasks">tasks:</p>
                     <ul class="achievements">
-                        <li>Designing visual content and communication materials.</li>
-                        <li>Supporting communication initiatives and campaigns.</li>
+                        <li data-i18n="sindicato.task1">Designing visual content and communication materials.</li>
+                        <li data-i18n="sindicato.task2">Supporting communication initiatives and campaigns.</li>
                     </ul>
                 </div>
 
                 <div class="p">
-                    <h3 class="job-position">Android Developer <span>at Capitole</span></h3>
-                    <p class="caption">October 2024 - August 2025</p>
-                    <p class="company-info">The client was part of the retail sector. I worked as a developer for
+                    <h3 class="job-position"><span data-i18n="role.androidDeveloper">Android Developer</span> <span data-i18n="capitole.company">at Capitole</span></h3>
+                    <p class="caption" data-i18n="capitole.dates">October 2024 - August 2025</p>
+                    <p class="company-info" data-i18n="capitole.info">The client was part of the retail sector. I worked as a developer for
                         them through the consulting company Capitole.</p>
-                    <p class="caption">achievements / tasks:</p>
+                    <p class="caption" data-i18n="experience.achievements">achievements / tasks:</p>
                     <ul class="achievements">
-                        <li>Development, testing and maintenance of the app used by employees in the retail stores
+                        <li data-i18n="capitole.task1">Development, testing and maintenance of the app used by employees in the retail stores
                             to simplify the management and organization both in the store and in the warehouse.
                         </li>
                     </ul>
                 </div>
 
                 <div class="p">
-                    <h3 class="job-position">Android Developer <span>at Wefox Insurance</span></h3>
-                    <p class="caption">October 2021 - July 2024</p>
-                    <p class="company-info">Wefox is an insurtech created with the purpose of driving the digital
+                    <h3 class="job-position"><span data-i18n="role.androidDeveloper">Android Developer</span> <span data-i18n="wefox.company">at Wefox Insurance</span></h3>
+                    <p class="caption" data-i18n="wefox.dates">October 2021 - July 2024</p>
+                    <p class="company-info" data-i18n="wefox.info">Wefox is an insurtech created with the purpose of driving the digital
                         transformation of the insurance industry and facilitating collaboration among all
                         stakeholders.
                     </p>
-                    <p class="caption">achievements / tasks:</p>
+                    <p class="caption" data-i18n="experience.achievements">achievements / tasks:</p>
                     <ul class="achievements">
-                        <li>Development, testing and maintenance of the customer app. Participation from the
+                        <li data-i18n="wefox.task1">Development, testing and maintenance of the customer app. Participation from the
                             refinement through the delivery, review and release of the features and goals.</li>
-                        <li>Release of the app for Android in Germany and Switzerland.</li>
-                        <li>Development of a design system library for UI consistency across the app.</li>
-                        <li>Development of a core library for business logic across different apps.</li>
-                        <li>Active participation in Android Chapters.</li>
+                        <li data-i18n="wefox.task2">Release of the app for Android in Germany and Switzerland.</li>
+                        <li data-i18n="wefox.task3">Development of a design system library for UI consistency across the app.</li>
+                        <li data-i18n="wefox.task4">Development of a core library for business logic across different apps.</li>
+                        <li data-i18n="wefox.task5">Active participation in Android Chapters.</li>
                     </ul>
                 </div>
 
                 <div class="p">
-                    <h3 class="job-position">Graphic Designer <span>at Ninona Producciones</span></h3>
-                    <p class="caption">October 2017 - July 2020</p>
-                    <p class="company-info">Ninona Producciones is a management agency for comedy artists.</p>
-                    <p class="caption">achievements / tasks:</p>
+                    <h3 class="job-position"><span data-i18n="role.graphicDesigner">Graphic Designer</span> <span data-i18n="ninona.company">at Ninona Producciones</span></h3>
+                    <p class="caption" data-i18n="ninona.dates">October 2017 - July 2020</p>
+                    <p class="company-info" data-i18n="ninona.info">Ninona Producciones is a management agency for comedy artists.</p>
+                    <p class="caption" data-i18n="experience.achievements">achievements / tasks:</p>
                     <ul class="achievements">
-                        <li>Graphic Design of all advertising related with products and services.</li>
-                        <li>Manage of social media advertising campaigns.</li>
-                        <li>Creation and maintenance of all websites with Wordpress.</li>
+                        <li data-i18n="ninona.task1">Graphic Design of all advertising related with products and services.</li>
+                        <li data-i18n="ninona.task2">Manage of social media advertising campaigns.</li>
+                        <li data-i18n="ninona.task3">Creation and maintenance of all websites with Wordpress.</li>
                     </ul>
                 </div>
             </div>
@@ -146,7 +186,7 @@
         <section class="info" id="skills" aria-labelledby="skills-title">
             <h2 class="card-title" id="skills-title">
                 <span aria-hidden="true">🔎</span>
-                <span>Skills</span>
+                <span data-i18n="skills.title">Skills</span>
             </h2>
             <div class="card-body skills-body">
                 <div class="accordion-item" id="design-skills">
@@ -154,7 +194,7 @@
                         <button class="accordion" type="button" id="design-skills-btn" aria-expanded="false"
                             aria-controls="design-skills-panel">
                             <span class="accordion-label">
-                                <span class="accordion-title">Graphic & UI/UX Design</span>
+                                <span class="accordion-title" data-i18n="skills.design">Graphic & UI/UX Design</span>
                             </span>
                             <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -167,15 +207,15 @@
                         <div class="panel-inner">
                             <div class="skills-grid">
                                 <div class="skill">
-                                    <h4 class="tag-title">Design skills</h4>
-                                    <p>Graphic Design</p>
-                                    <p>UI Design (Web / Mobile)</p>
-                                    <p>UX Design &amp; Research</p>
-                                    <p>Illustration</p>
-                                    <p>Design Systems</p>
+                                    <h4 class="tag-title" data-i18n="skills.designSkills">Design skills</h4>
+                                    <p data-i18n="skills.graphicDesign">Graphic Design</p>
+                                    <p data-i18n="skills.uiDesign">UI Design (Web / Mobile)</p>
+                                    <p data-i18n="skills.uxDesign">UX Design &amp; Research</p>
+                                    <p data-i18n="skills.illustration">Illustration</p>
+                                    <p data-i18n="skills.designSystems">Design Systems</p>
                                 </div>
                                 <div class="skill">
-                                    <h4 class="tag-title">Design stack</h4>
+                                    <h4 class="tag-title" data-i18n="skills.designStack">Design stack</h4>
                                     <p>Figma</p>
                                     <p>Photoshop</p>
                                     <p>Illustrator</p>
@@ -191,7 +231,7 @@
                         <button class="accordion" type="button" id="development-skills-btn" aria-expanded="false"
                             aria-controls="development-skills-panel">
                             <span class="accordion-label">
-                                <span class="accordion-title">Android Development</span>
+                                <span class="accordion-title" data-i18n="skills.development">Android Development</span>
                             </span>
                             <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -204,16 +244,16 @@
                         <div class="panel-inner">
                             <div class="skills-grid">
                                 <div class="skill">
-                                    <h4 class="tag-title">Development practices</h4>
-                                    <p>SOLID principles</p>
-                                    <p>Clean architecture</p>
+                                    <h4 class="tag-title" data-i18n="skills.devPractices">Development practices</h4>
+                                    <p data-i18n="skills.solid">SOLID principles</p>
+                                    <p data-i18n="skills.cleanArchitecture">Clean architecture</p>
                                     <p>MVVM</p>
-                                    <p>Design patterns</p>
-                                    <p>Multi-module architecture</p>
-                                    <p>Unit &amp; Ui testing</p>
+                                    <p data-i18n="skills.designPatterns">Design patterns</p>
+                                    <p data-i18n="skills.multiModule">Multi-module architecture</p>
+                                    <p data-i18n="skills.testing">Unit &amp; Ui testing</p>
                                 </div>
                                 <div class="skill">
-                                    <h4 class="tag-title">Development stack</h4>
+                                    <h4 class="tag-title" data-i18n="skills.devStack">Development stack</h4>
                                     <p>Kotlin</p>
                                     <p>Jetpack Compose || XML</p>
                                     <p>Koin || Dagger Hilt</p>
@@ -221,7 +261,7 @@
                                     <p>Lokalise</p>
                                     <p>LaunchDarkly</p>
                                     <p>Firebase</p>
-                                    <p>Atlassian suite</p>
+                                    <p data-i18n="skills.atlassian">Atlassian suite</p>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +272,7 @@
                         <button class="accordion" type="button" id="languages-btn" aria-expanded="false"
                             aria-controls="languages-panel">
                             <span class="accordion-label">
-                                <span class="accordion-title">Languages I speak</span>
+                                <span class="accordion-title" data-i18n="skills.languages">Languages I speak</span>
                             </span>
                             <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -245,8 +285,8 @@
                         <div class="panel-inner">
                             <div class="skills-grid">
                                 <div class="skill">
-                                    <p>Spanish - Native</p>
-                                    <p>English - Professional working proficiency</p>
+                                    <p data-i18n="skills.spanish">Spanish - Native</p>
+                                    <p data-i18n="skills.english">English - Professional working proficiency</p>
                                 </div>
                             </div>
                         </div>
@@ -258,20 +298,22 @@
         <section class="info" id="projects" aria-labelledby="projects-title">
             <h2 class="card-title" id="projects-title">
                 <span aria-hidden="true">🤖</span>
-                <span>Projects</span>
+                <span data-i18n="projects.title">Projects</span>
             </h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
                             rel="noopener noreferrer" href="https://github.com/nuncamaria/ghibli-api"
-                            title="Ghibli World Project source code">source code</a></h3>
-                    <p class="caption">Api call with Ktor</p>
+                            title="Ghibli World Project source code" data-i18n="projects.sourceCode"
+                            data-i18n-title="projects.ghibliLink">source code</a></h3>
+                    <p class="caption" data-i18n="projects.ghibliInfo">Api call with Ktor</p>
                 </div>
                 <div class="p">
                     <h3 class="job-position">To-do CRUD App <a class="project-link" target="_blank"
                             rel="noopener noreferrer" href="https://github.com/nuncamaria/todo-app"
-                            title="To-Do CRUD App source code">source code</a></h3>
-                    <p class="caption">Data Base with Room</p>
+                            title="To-Do CRUD App source code" data-i18n="projects.sourceCode"
+                            data-i18n-title="projects.todoLink">source code</a></h3>
+                    <p class="caption" data-i18n="projects.todoInfo">Data Base with Room</p>
                 </div>
             </div>
         </section>
@@ -279,26 +321,26 @@
         <section class="info" id="education" aria-labelledby="education-title">
             <h2 class="card-title" id="education-title">
                 <span aria-hidden="true">📚</span>
-                <span>Education</span>
+                <span data-i18n="education.title">Education</span>
             </h2>
             <div class="card-body">
                 <div class="p">
-                    <h3 class="job-position">UI/UX Master <span>at LaBasad</span></h3>
-                    <p class="caption">October 2025 - October 2026, online</p>
+                    <h3 class="job-position"><span data-i18n="education.master">UI/UX Master</span> <span data-i18n="education.masterSchool">at LaBasad</span></h3>
+                    <p class="caption" data-i18n="education.masterDates">October 2025 - October 2026, online</p>
                 </div>
                 <div class="p">
-                    <h3 class="job-position">Front-End Development Bootcamp <span>at Adalab</span></h3>
-                    <p class="caption">April - July 2021, online</p>
+                    <h3 class="job-position"><span data-i18n="education.bootcamp">Front-End Development Bootcamp</span> <span data-i18n="education.bootcampSchool">at Adalab</span></h3>
+                    <p class="caption" data-i18n="education.bootcampDates">April - July 2021, online</p>
                 </div>
                 <div class="p">
-                    <h3 class="job-position">Graphic Design Degree <span>at School of Design</span></h3>
-                    <p class="caption">September 2018 - July 2021, on-site in Murcia</p>
+                    <h3 class="job-position"><span data-i18n="education.degree">Graphic Design Degree</span> <span data-i18n="education.degreeSchool">at School of Design</span></h3>
+                    <p class="caption" data-i18n="education.degreeDates">September 2018 - July 2021, on-site in Murcia</p>
                 </div>
                 <div class="p">
-                    <h3 class="job-position">Advanced Vocational Studies in Illustration
-                        <span>at School of Arts</span>
+                    <h3 class="job-position"><span data-i18n="education.vocational">Advanced Vocational Studies in Illustration</span>
+                        <span data-i18n="education.vocationalSchool">at School of Arts</span>
                     </h3>
-                    <p class="caption">September 2015 - July 2018, on-site in Murcia</p>
+                    <p class="caption" data-i18n="education.vocationalDates">September 2015 - July 2018, on-site in Murcia</p>
                 </div>
             </div>
         </section>
@@ -317,13 +359,13 @@
         <p>© 2026 María Núñez</p>
     </footer>
 
-    <nav class="bottom-nav" aria-label="Sections">
+    <nav class="bottom-nav" aria-label="Sections" data-i18n-aria-label="nav.label">
         <ul>
-            <li><a href="#about-me">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#education">Education</a></li>
+            <li><a href="#about-me" data-i18n="nav.about">About</a></li>
+            <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+            <li><a href="#skills" data-i18n="skills.title">Skills</a></li>
+            <li><a href="#projects" data-i18n="projects.title">Projects</a></li>
+            <li><a href="#education" data-i18n="education.title">Education</a></li>
         </ul>
     </nav>
 </body>
