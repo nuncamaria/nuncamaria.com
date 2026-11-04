@@ -55,7 +55,9 @@
     <header class="header" id="header">
         <div class="header-info">
             <div class="header-top">
-                <p class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep"> / </span><span class="brand-word">siempre</span></span> soy -> maria</p>
+                <p class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span
+                            class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep">
+                            / </span><span class="brand-word">siempre</span></span> soy -> maria</p>
                 <button class="lang-toggle" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
                     title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -204,110 +206,57 @@
                 <span aria-hidden="true">🔎</span>
                 <span data-i18n="skills.title">Skills</span>
             </h2>
-            <div class="card-body skills-body">
-                <div class="accordion-item" id="design-skills">
-                    <h3>
-                        <button class="accordion" type="button" id="design-skills-btn" aria-expanded="false"
-                            aria-controls="design-skills-panel">
-                            <span class="accordion-label">
-                                <span class="accordion-title" data-i18n="skills.design">Graphic & UI/UX Design</span>
-                            </span>
-                            <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" focusable="false">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg></span>
-                        </button>
-                    </h3>
-                    <div class="panel" id="design-skills-panel">
-                        <div class="panel-inner">
-                            <div class="skills-grid">
-                                <div class="skill">
-                                    <h4 class="tag-title" data-i18n="skills.designSkills">Design skills</h4>
-                                    <p data-i18n="skills.graphicDesign">Graphic Design</p>
-                                    <p data-i18n="skills.uiDesign">UI Design (Web / Mobile)</p>
-                                    <p data-i18n="skills.uxDesign">UX Design &amp; Research</p>
-                                    <p data-i18n="skills.illustration">Illustration</p>
-                                    <p data-i18n="skills.designSystems">Design Systems</p>
-                                </div>
-                                <div class="skill">
-                                    <h4 class="tag-title" data-i18n="skills.designStack">Design stack</h4>
-                                    <p>Figma</p>
-                                    <p>Photoshop</p>
-                                    <p>Illustrator</p>
-                                    <p>InDesign</p>
-                                    <p>After Effects</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="skills-cards" tabindex="0" role="group" aria-labelledby="skills-title">
+                <article class="skill-card">
+                    <h3 class="skill-card-title" data-i18n="skills.designTitle">Design</h3>
+                    <div class="skill-group">
+                        <h4 class="skill-group-title" data-i18n="skills.designExpertise">Expertise</h4>
+                        <ul class="skill-list">
+                            <li data-i18n="skills.graphicDesign">Graphic Design</li>
+                            <li data-i18n="skills.uiDesign">UI Design (Web / Mobile)</li>
+                            <li data-i18n="skills.uxDesign">UX Design &amp; Research</li>
+                            <li data-i18n="skills.illustration">Illustration</li>
+                            <li data-i18n="skills.designSystems">Design Systems</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="accordion-item" id="development-skills">
-                    <h3>
-                        <button class="accordion" type="button" id="development-skills-btn" aria-expanded="false"
-                            aria-controls="development-skills-panel">
-                            <span class="accordion-label">
-                                <span class="accordion-title" data-i18n="skills.development">Android Development</span>
-                            </span>
-                            <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" focusable="false">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg></span>
-                        </button>
-                    </h3>
-                    <div class="panel" id="development-skills-panel">
-                        <div class="panel-inner">
-                            <div class="skills-grid">
-                                <div class="skill">
-                                    <h4 class="tag-title" data-i18n="skills.devPractices">Development practices</h4>
-                                    <p data-i18n="skills.solid">SOLID principles</p>
-                                    <p data-i18n="skills.cleanArchitecture">Clean architecture</p>
-                                    <p>MVVM</p>
-                                    <p data-i18n="skills.designPatterns">Design patterns</p>
-                                    <p data-i18n="skills.multiModule">Multi-module architecture</p>
-                                    <p data-i18n="skills.testing">Unit &amp; Ui testing</p>
-                                </div>
-                                <div class="skill">
-                                    <h4 class="tag-title" data-i18n="skills.devStack">Development stack</h4>
-                                    <p>Kotlin</p>
-                                    <p>Jetpack Compose || XML</p>
-                                    <p>Koin || Dagger Hilt</p>
-                                    <p>Github</p>
-                                    <p>Lokalise</p>
-                                    <p>LaunchDarkly</p>
-                                    <p>Firebase</p>
-                                    <p data-i18n="skills.atlassian">Atlassian suite</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="skill-group">
+                        <h4 class="skill-group-title">Stack</h4>
+                        <ul class="skill-list">
+                            <li>Figma</li>
+                            <li>Photoshop</li>
+                            <li>Illustrator</li>
+                            <li>InDesign</li>
+                            <li>After Effects</li>
+                        </ul>
                     </div>
-                </div>
-                <div class="accordion-item" id="languages">
-                    <h3>
-                        <button class="accordion" type="button" id="languages-btn" aria-expanded="false"
-                            aria-controls="languages-panel">
-                            <span class="accordion-label">
-                                <span class="accordion-title" data-i18n="skills.languages">Languages I speak</span>
-                            </span>
-                            <span class="accordion-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" focusable="false">
-                                    <path d="m6 9 6 6 6-6" />
-                                </svg></span>
-                        </button>
-                    </h3>
-                    <div class="panel" id="languages-panel">
-                        <div class="panel-inner">
-                            <div class="skills-grid">
-                                <div class="skill">
-                                    <p data-i18n="skills.spanish">Spanish - Native</p>
-                                    <p data-i18n="skills.english">English - Professional working proficiency</p>
-                                </div>
-                            </div>
-                        </div>
+                </article>
+                <article class="skill-card">
+                    <h3 class="skill-card-title" data-i18n="skills.devTitle">Android Development</h3>
+                    <div class="skill-group">
+                        <h4 class="skill-group-title" data-i18n="skills.devExpertise">Practices</h4>
+                        <ul class="skill-list">
+                            <li data-i18n="skills.solid">SOLID principles</li>
+                            <li data-i18n="skills.cleanArchitecture">Clean architecture</li>
+                            <li>MVVM</li>
+                            <li data-i18n="skills.designPatterns">Design patterns</li>
+                            <li data-i18n="skills.multiModule">Multi-module architecture</li>
+                            <li data-i18n="skills.testing">Unit &amp; Ui testing</li>
+                        </ul>
                     </div>
-                </div>
+                    <div class="skill-group">
+                        <h4 class="skill-group-title">Stack</h4>
+                        <ul class="skill-list">
+                            <li>Kotlin</li>
+                            <li>Jetpack Compose || XML</li>
+                            <li>Koin || Dagger Hilt</li>
+                            <li>Github</li>
+                            <li>Lokalise</li>
+                            <li>LaunchDarkly</li>
+                            <li>Firebase</li>
+                            <li>Atlassian suite</li>
+                        </ul>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -347,7 +296,8 @@
                 </div>
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.bootcamp">Front-End Development Bootcamp</span>
-                        <span data-i18n="education.bootcampSchool">at Adalab</span></h3>
+                        <span data-i18n="education.bootcampSchool">at Adalab</span>
+                    </h3>
                     <p class="caption" data-i18n="education.bootcampDates">April - July 2021, online</p>
                 </div>
                 <div class="p">

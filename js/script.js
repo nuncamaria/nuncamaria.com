@@ -1,21 +1,3 @@
-const accordions = document.querySelectorAll(".accordion");
-
-accordions.forEach((button) => {
-  button.addEventListener("click", () => {
-    const isOpen = button.getAttribute("aria-expanded") === "true";
-    button.setAttribute("aria-expanded", String(!isOpen));
-  });
-});
-
-function openFromHash() {
-  const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-  const button = target && target.querySelector(":scope > h3 > .accordion");
-  if (button) button.setAttribute("aria-expanded", "true");
-}
-
-openFromHash();
-window.addEventListener("hashchange", openFromHash);
-
 // IDIOMA: el <head> decide el idioma inicial; aquí se aplican los textos y se gestiona el botón.
 
 const root = document.documentElement;
@@ -158,3 +140,56 @@ document.fonts?.ready.then(fitBrandSlot);
 window.addEventListener("resize", fitBrandSlot);
 reducedMotion.addEventListener("change", fitBrandSlot);
 setInterval(showNextBrandWord, BRAND_INTERVAL_MS);
+
+// CURSOR circunferencia
+
+const cursor = document.createElement("div");
+cursor.className = "cursor";
+cursor.setAttribute("aria-hidden", "true");
+document.body.append(cursor);
+
+let cursorX = 0;
+let cursorY = 0;
+
+function hideCursor() {
+  root.classList.remove("has-cursor");
+}
+
+function updateCursorMode(target) {
+  cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
+
+  const colored = target?.closest?.(".card-title, .bottom-nav a");
+  const section = target?.closest?.(".info");
+
+  if (colored) {
+    cursor.style.setProperty("--cursor-ring", getComputedStyle(colored).color);
+  } else if (section) {
+    cursor.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
+  } else {
+    cursor.style.removeProperty("--cursor-ring");
+  }
+}
+
+function moveCursor(event) {
+  if (event.pointerType === "touch") {
+    hideCursor();
+    return;
+  }
+  cursorX = event.clientX;
+  cursorY = event.clientY;
+  cursor.style.translate = `${cursorX}px ${cursorY}px`;
+  updateCursorMode(event.target);
+  root.classList.add("has-cursor");
+}
+
+// Al hacer scroll sin mover el ratón, lo que hay debajo del cursor también cambia.
+function refreshCursorOnScroll() {
+  if (root.classList.contains("has-cursor")) {
+    updateCursorMode(document.elementFromPoint(cursorX, cursorY));
+  }
+}
+
+window.addEventListener("pointermove", moveCursor, { passive: true });
+window.addEventListener("pointerdown", moveCursor, { passive: true });
+window.addEventListener("scroll", refreshCursorOnScroll, { passive: true });
+root.addEventListener("pointerleave", hideCursor);

@@ -34,6 +34,7 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+  line-height: 1.6;
 }
 
 h3,
@@ -183,12 +184,12 @@ html:not(.js) .lang-toggle {
 .header-info .about {
   display: flex;
   flex-flow: column wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .main {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   gap: 2rem;
   margin: var(--margin-centered);
   padding: 0rem 1rem 2rem 1rem;
@@ -254,100 +255,12 @@ html:not(.js) .lang-toggle {
   font-size: 0.75em;
 }
 
-/* ACCORDION SKILL */
-
-.accordion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  background: none;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  padding-block: 0.5rem;
-}
-
-.accordion[aria-expanded="true"] {
-  border-bottom: thin solid #141414;
-}
-
-.accordion-label {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.accordion-arrow {
-  display: inline-block;
-  margin: 0 0.5rem;
-  transition: transform 0.25s ease;
-}
-
-.accordion-arrow svg {
-  display: block;
-  width: 1rem;
-  height: 1rem;
-}
-
-.accordion[aria-expanded="true"] .accordion-arrow {
-  transform: rotate(180deg);
-}
-
-.panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.25s ease;
-}
-
-h3:has(> .accordion[aria-expanded="true"])+.panel {
-  grid-template-rows: 1fr;
-}
-
-.panel-inner {
-  overflow: hidden;
-  min-height: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0s linear 0.25s;
-}
-
-h3:has(> .accordion[aria-expanded="true"])+.panel .panel-inner {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.2s ease 0.05s, visibility 0s;
-}
-
-.card-body> :first-child,
-.panel-inner> :first-child {
+.card-body> :first-child {
   margin-top: 1rem;
 }
 
-.card-body> :last-child,
-.panel-inner> :last-child {
+.card-body> :last-child {
   margin-bottom: 1rem;
-}
-
-html:not(.js) .panel {
-  grid-template-rows: 1fr;
-}
-
-html:not(.js) .panel-inner {
-  opacity: 1;
-  visibility: visible;
-}
-
-@supports not selector(:has(*)) {
-  .panel {
-    grid-template-rows: 1fr;
-  }
-
-  .panel-inner {
-    opacity: 1;
-    visibility: visible;
-  }
 }
 
 /* INFO */
@@ -381,6 +294,10 @@ html:not(.js) .panel-inner {
   font-weight: 600;
 }
 
+.main .info .p .job-position {
+  line-height: 1.35;
+}
+
 .main .info .p .company-info {
   font-size: 0.875rem;
 }
@@ -402,26 +319,56 @@ html:not(.js) .panel-inner {
   margin-left: 1.2rem;
 }
 
-.main .skills-grid {
+/* Separa cada tarea más que las líneas de una misma tarea */
+.main .info .p .achievements li+li {
+  margin-top: 0.5rem;
+}
+
+/* Sumado al padding de .p, deja 2rem entre un trabajo y el siguiente */
+.main #experience .card-body>.p+.p {
+  margin-top: 0.8rem;
+}
+
+/* SKILLS */
+
+.skills-cards {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.5rem;
 }
 
-.skills-body {
+.skills-cards:focus-visible {
+  outline: 2px solid #f2f2f2;
+  outline-offset: 2px;
+  border-radius: 1rem;
+}
+
+.skill-card {
   display: flex;
-  flex-flow: column;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem 1rem;
+  border-radius: 1rem;
+  background-color: #fff;
 }
 
-.main .info .skill .tag-title {
-  font-size: 1.17em;
+.skill-card-title {
+  font-size: 1.5rem;
+  line-height: 1.2;
 }
 
-.main .info .skill {
-  background-color: #ffec9e;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+.skill-group-title {
+  margin-bottom: 0.5rem;
+  color: #595959;
+  font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .main #projects .project-link {
@@ -494,6 +441,37 @@ html:not(.js) .panel-inner {
   box-shadow: inset 0 0 0 2px var(--pill);
 }
 
+/* CURSOR: aro blanco que toma el color de la sección en la que está (script.js) */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 3rem;
+  height: 3rem;
+  /* La mitad del tamaño, para centrar el aro en la posición real del ratón */
+  margin: -1.5rem 0 0 -1.5rem;
+  border: 2px solid var(--cursor-ring, #fff);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: scale 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.has-cursor .cursor {
+  opacity: 1;
+}
+
+.cursor.is-over-link {
+  scale: 1.75;
+}
+
+.has-cursor,
+.has-cursor * {
+  cursor: none !important;
+}
+
 /* FOOTER */
 
 .footer {
@@ -553,6 +531,31 @@ html:not(.js) .panel-inner {
     flex: 0 0 clamp(7.5rem, 38vw, 11rem);
     scroll-snap-align: start;
   }
+
+  /* El ancho deja asomar la segunda card para indicar que hay scroll */
+  .skills-cards {
+    display: flex;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+  }
+
+  .skills-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .skills-cards:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .skill-card {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
 }
 
 @media (min-width: 768px) {
@@ -568,10 +571,6 @@ html:not(.js) .panel-inner {
   .header-info .about {
     padding: 0 .2rem;
   }
-
-  .main .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -580,21 +579,21 @@ html:not(.js) .panel-inner {
   }
 
   .lang-toggle,
-  .accordion-arrow,
-  .panel,
-  .panel-inner {
+  .cursor {
     transition: none;
   }
 }
 
 @media print {
-  .panel {
-    grid-template-rows: 1fr;
+  .cursor {
+    display: none;
   }
 
-  .panel-inner {
-    opacity: 1;
-    visibility: visible;
+  .skills-cards {
+    display: grid;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
   }
 
   .bottom-nav,
