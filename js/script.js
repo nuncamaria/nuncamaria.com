@@ -130,3 +130,31 @@ navItems.forEach(({ link }) => {
 window.addEventListener("scroll", updateActiveLink, { passive: true });
 window.addEventListener("resize", updateActiveLink);
 updateActiveLink();
+
+// FRASE DE MARCA: alterna "nunca / a veces / siempre". Se pausa al pasar el cursor o al tocarla.
+
+const brand = document.querySelector(".brand");
+const brandItems = [...brand.querySelectorAll(".brand-word")];
+const BRAND_INTERVAL_MS = 2200;
+const brandSlot = brand.querySelector(".brand-words");
+let brandIndex = 0;
+
+function fitBrandSlot() {
+  brandSlot.style.width = reducedMotion.matches ? "" : `${brandItems[brandIndex].offsetWidth + 1}px`;
+}
+
+function showNextBrandWord() {
+  if (reducedMotion.matches || document.hidden || brand.matches(":hover")) return;
+
+  brandItems.forEach((word) => word.classList.remove("is-leaving"));
+  brandItems[brandIndex].classList.replace("is-active", "is-leaving");
+  brandIndex = (brandIndex + 1) % brandItems.length;
+  brandItems[brandIndex].classList.add("is-active");
+  fitBrandSlot();
+}
+
+fitBrandSlot();
+document.fonts?.ready.then(fitBrandSlot);
+window.addEventListener("resize", fitBrandSlot);
+reducedMotion.addEventListener("change", fitBrandSlot);
+setInterval(showNextBrandWord, BRAND_INTERVAL_MS);

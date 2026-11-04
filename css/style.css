@@ -62,6 +62,45 @@ h4 {
   min-width: 0;
   font-size: .75rem;
   font-weight: 200;
+  line-height: 1.4;
+}
+
+.brand span {
+  font-weight: inherit;
+}
+
+/* Brand animation  */
+@media (prefers-reduced-motion: no-preference) {
+  .js .brand-words {
+    position: relative;
+    display: inline-block;
+    width: 2.8em;
+    height: 1.4em;
+    vertical-align: bottom;
+    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  }
+
+  .js .brand-sep {
+    display: none;
+  }
+
+  .js .brand-word {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    white-space: nowrap;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .js .brand-word.is-active {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.4s ease 0.25s;
+  }
+
+  .js .brand-word.is-leaving {
+    clip-path: inset(0 0 0 100%);
+    transition: clip-path 0.25s ease;
+  }
 }
 
 /* Oculta la página hasta aplicar el español (ver <head>) */
@@ -451,7 +490,6 @@ html:not(.js) .panel-inner {
     font-size: 1.25rem;
   }
 
-  /* El padding lateral pasa a la lista para que las pills lleguen al borde al hacer scroll */
   .bottom-nav {
     padding: 0.75rem 0 1.75rem;
   }
@@ -469,7 +507,6 @@ html:not(.js) .panel-inner {
     display: none;
   }
 
-  /* Ancho pensado para que siempre asome parte de la siguiente pill */
   .bottom-nav li {
     flex: 0 0 clamp(7.5rem, 38vw, 11rem);
     scroll-snap-align: start;
