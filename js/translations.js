@@ -6,13 +6,8 @@ const translationsEs = {
   "lang.switch": "Cambiar a inglés (EN)",
   "lang.target": "EN",
 
-  "header.greeting": "Hola 👋",
-  "header.name": "soy María Núñez",
-  "header.summary":
-    "Diseñadora gráfica especializada en UI/UX con más de 3 años de experiencia como desarrolladora Android.",
-  "header.location": "Vivo en Murcia, España. ☀",
-  "header.approach": "Diseño soluciones digitales con la perspectiva de quien también programa.",
-  "header.person": "Soy una persona curiosa, con los pies en la tierra, que se preocupa por las personas.",
+  "header.summary": "Diseñadora gráfica especializada en UI/UX con más de 3 años de experiencia como desarrolladora Android. Vivo en Murcia, España. ☀",
+  "header.values": "Diseño soluciones digitales con la perspectiva de quien también programa. Soy una persona curiosa, con los pies en la tierra, que se preocupa por las personas.",
 
   "about.title": "Sobre mí",
   "about.p1":

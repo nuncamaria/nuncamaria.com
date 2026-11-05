@@ -53,44 +53,26 @@
 
 <body>
     <header class="header" id="header">
-        <div class="header-info">
-            <div class="header-top">
-                <p class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span
-                            class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep">
-                            / </span><span class="brand-word">siempre</span></span> soy -> maria</p>
-                <button class="lang-toggle" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
-                    title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" focusable="false" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M2 12h20" />
-                        <path
-                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                    <span data-i18n="lang.target">ES</span>
-                </button>
-            </div>
-            <h1 class="title">
-                <span class="title-greeting" data-i18n="header.greeting">Hi 👋</span>
-                <span class="title-name" data-i18n="header.name">I'm María Núñez</span>
-            </h1>
-
-            <div class="about">
-                <p data-i18n="header.summary">Graphic designer specialized in UI/UX with +3 years of experience as an
-                    Android developer.</p>
-                <p data-i18n="header.location">Based in Murcia, Spain. ☀ </p>
-                <p data-i18n="header.approach">I design digital solutions with a developer's perspective.</p>
-                <p data-i18n="header.person">I'm a curious, grounded person who cares about people.</p>
-            </div>
-        </div>
+        <!-- Sin título visible: el h1 se mantiene para lectores de pantalla y buscadores -->
+        <h1 class="visually-hidden">María Núñez</h1>
+        <button class="lang-toggle" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
+            title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
+            <span data-i18n="lang.target">ES</span>
+        </button>
+        <p>
+            <span class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span
+                        class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep">
+                        / </span><span class="brand-word">siempre</span></span> soy -> maria nuñez.</span>
+            <span data-i18n="header.summary">Graphic designer specialized in UI/UX with +3 years of experience as an
+                Android developer. Based in Murcia, Spain. ☀</span>
+        </p>
+        <p data-i18n="header.values">I design digital solutions with a developer's perspective. I'm a curious,
+            grounded person who cares about people.</p>
     </header>
 
     <main class="main">
         <section class="info" id="about-me" aria-labelledby="about-me-title">
-            <h2 class="card-title" id="about-me-title">
-                <span aria-hidden="true">👀</span>
-                <span data-i18n="about.title">About me</span>
-            </h2>
+            <h2 class="card-title" id="about-me-title" data-i18n="about.title">About me</h2>
             <div class="card-body">
                 <p class="p" data-i18n="about.p1">
                     I started in illustration and graphic design, where I learned to approach problems visually and
@@ -112,21 +94,18 @@
                 <div class="p" id="hobbies">
                     <p class="caption" data-i18n="about.hobbies">Away from the screen:</p>
                     <ul class="hobbies">
-                        <li>🧗‍♂️ <span data-i18n="hobby.climbing">Climbing</span></li>
-                        <li>⛰️ <span data-i18n="hobby.hiking">Hiking</span></li>
-                        <li>🎨 <span data-i18n="hobby.drawing">Drawing</span></li>
-                        <li>🤸‍♀️ <span data-i18n="hobby.dancing">Dancing</span></li>
-                        <li>🧘‍♂️ <span data-i18n="hobby.meditation">Meditation</span></li>
+                        <li data-i18n="hobby.climbing">Climbing</li>
+                        <li data-i18n="hobby.hiking">Hiking</li>
+                        <li data-i18n="hobby.drawing">Drawing</li>
+                        <li data-i18n="hobby.dancing">Dancing</li>
+                        <li data-i18n="hobby.meditation">Meditation</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section class="info" id="experience" aria-labelledby="experience-title">
-            <h2 class="card-title" id="experience-title">
-                <span aria-hidden="true">🚀</span>
-                <span data-i18n="experience.title">Experience</span>
-            </h2>
+            <h2 class="card-title" id="experience-title" data-i18n="experience.title">Experience</h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position">
@@ -202,10 +181,7 @@
         </section>
 
         <section class="info" id="skills" aria-labelledby="skills-title">
-            <h2 class="card-title" id="skills-title">
-                <span aria-hidden="true">🔎</span>
-                <span data-i18n="skills.title">Skills</span>
-            </h2>
+            <h2 class="card-title" id="skills-title" data-i18n="skills.title">Skills</h2>
             <div class="skills-cards" tabindex="0" role="group" aria-labelledby="skills-title">
                 <div class="skills-cards-inner">
                     <article class="skill-card">
@@ -263,10 +239,7 @@
         </section>
 
         <section class="info" id="projects" aria-labelledby="projects-title">
-            <h2 class="card-title" id="projects-title">
-                <span aria-hidden="true">🤖</span>
-                <span data-i18n="projects.title">Projects</span>
-            </h2>
+            <h2 class="card-title" id="projects-title" data-i18n="projects.title">Projects</h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
@@ -286,10 +259,7 @@
         </section>
 
         <section class="info" id="education" aria-labelledby="education-title">
-            <h2 class="card-title" id="education-title">
-                <span aria-hidden="true">📚</span>
-                <span data-i18n="education.title">Education</span>
-            </h2>
+            <h2 class="card-title" id="education-title" data-i18n="education.title">Education</h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.master">UI/UX Master</span> <span

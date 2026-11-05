@@ -10,7 +10,6 @@
 }
 
 :root {
-  --primary-color: #ffcc00;
   --color-about: #fb4a4a;
   --color-experience: #7EBC89;
   --color-skills: #FFCC00;
@@ -49,44 +48,43 @@ h4 {
   margin: var(--margin-centered);
   max-width: var(--general-max-width);
   padding: 1rem 1rem 2rem;
+  /* Una columna para el texto y otra para el botón de idioma */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
 }
 
-.header-info {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 1rem;
-  padding: .75rem 1rem;
-  border: 1px solid var(--on-background);
-  border-radius: 1rem;
+.header>p {
+  grid-column: 1;
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: .75rem;
-}
-
-.brand {
-  min-width: 0;
-  font-size: .75rem;
-  font-weight: 200;
-  line-height: 1.4;
-}
-
-.brand span {
+.header>p span {
   font-weight: inherit;
+}
+
+/* Sangría de primera línea, como en un texto corrido editorial */
+.header>p+p {
+  text-indent: 1.5em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* Brand animation  */
 @media (prefers-reduced-motion: no-preference) {
+
+  /* Apila las palabras: el hueco mide lo que la más larga, y el párrafo no salta al cambiar */
   .js .brand-words {
-    position: relative;
-    display: inline-block;
-    width: 2.8em;
-    height: 1.4em;
-    vertical-align: bottom;
-    transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+    display: inline-grid;
   }
 
   .js .brand-sep {
@@ -94,9 +92,7 @@ h4 {
   }
 
   .js .brand-word {
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
+    grid-area: 1 / 1;
     white-space: nowrap;
     clip-path: inset(0 100% 0 0);
   }
@@ -118,10 +114,11 @@ h4 {
 }
 
 .lang-toggle {
-  display: inline-flex;
-  flex-shrink: 0;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: flex;
   align-items: center;
-  gap: .375rem;
   min-height: 2.5rem;
   padding-inline: .625rem;
   background: none;
@@ -133,12 +130,6 @@ h4 {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.lang-toggle svg {
-  display: block;
-  width: 1rem;
-  height: 1rem;
 }
 
 .lang-toggle span {
@@ -159,34 +150,6 @@ h4 {
 
 html:not(.js) .lang-toggle {
   display: none;
-}
-
-.header-info .title {
-  background: var(--primary-color);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: flex;
-  flex-flow: column wrap;
-  /* Tamaño del nombre: crece con la pantalla para caber en una línea en móvil */
-  font-size: clamp(2rem, 9.5vw, 3.75rem);
-  font-weight: 600;
-  line-height: 1.15;
-  padding-block: 0.15em;
-  margin-block: -0.15em;
-}
-
-.title span {
-  font-weight: inherit;
-}
-
-.title-greeting {
-  font-size: 0.8em;
-}
-
-.header-info .about {
-  display: flex;
-  flex-flow: column wrap;
-  gap: 0.75rem;
 }
 
 .main {
@@ -228,10 +191,6 @@ html:not(.js) .lang-toggle {
 /* CARD */
 
 .card-title {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3rem;
   padding: 1.25rem 1rem;
   border-radius: 1rem;
   background-color: var(--section-color);
@@ -247,14 +206,6 @@ html:not(.js) .lang-toggle {
   padding-inline: 1rem;
   border-radius: 1rem;
   background-color: var(--surface-color);
-}
-
-.card-title span {
-  font-weight: inherit;
-}
-
-.card-title span:first-child {
-  font-size: 0.75em;
 }
 
 .card-body> :first-child {
@@ -577,10 +528,6 @@ html:not(.js) .lang-toggle {
 
   .bottom-nav {
     padding: 1rem;
-  }
-
-  .header-info .about {
-    padding: 0 .2rem;
   }
 }
 
