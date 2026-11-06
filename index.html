@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" data-i18n-content="meta.description"
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer. Portfolio and CV of María Núñez.">
-    <meta name="theme-color" content="#191919">
+    <meta name="theme-color" content="#272727">
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <meta property="og:type" content="website">
     <meta property="og:title" content="María Núñez | UI/UX Designer &amp; Android Developer">
@@ -18,6 +18,11 @@
         (function () {
             var root = document.documentElement;
             root.classList.add("js");
+
+            // Aplica el modo guardado antes de pintar, para no ver un instante el oscuro.
+            try {
+                if (localStorage.getItem("theme") === "light") root.dataset.theme = "light";
+            } catch (e) { }
 
             var lang = null;
             try {
@@ -53,12 +58,21 @@
 
 <body>
     <header class="header" id="header">
-        <!-- Sin título visible: el h1 se mantiene para lectores de pantalla y buscadores -->
-        <h1 class="visually-hidden">María Núñez</h1>
-        <button class="lang-toggle" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
-            title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
-            <span data-i18n="lang.target">ES</span>
-        </button>
+        <h1 class="visually-hidden">María Núñez | UI/UX Designer & Android Developer</h1>
+        <div class="header-actions">
+            <button class="header-button" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
+                title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
+                <span data-i18n="lang.target">ES</span>
+            </button>
+            <button class="header-button" type="button" id="theme-toggle" aria-pressed="false" aria-label="Light mode"
+                title="Light mode" data-i18n-aria-label="theme.light" data-i18n-title="theme.light">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false"
+                    aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+                </svg>
+            </button>
+        </div>
         <p>
             <span class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span
                         class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep">

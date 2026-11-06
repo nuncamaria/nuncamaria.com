@@ -6,6 +6,8 @@ const translationsEs = {
   "lang.switch": "Cambiar a inglés (EN)",
   "lang.target": "EN",
 
+  "theme.light": "Modo claro",
+
   "header.summary": "Diseñadora gráfica especializada en UI/UX con más de 3 años de experiencia como desarrolladora Android.",
   "header.values": "Siempre que diseño soluciones digitales, lo hago desde la perspectiva de quien también programa. Soy una persona curiosa, con los pies en la tierra, que se preocupa por las personas. Vivo en Murcia, España. ☀",
 

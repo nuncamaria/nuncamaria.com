@@ -10,17 +10,17 @@
 }
 
 :root {
-  --color-about: #fb4a4a;
-  --color-experience: #7EBC89;
-  --color-skills: #FFCC00;
-  --color-projects: #444140;
-  --color-education: #0496FF;
+  color-scheme: dark;
   --general-max-width: 900px;
   --margin-centered: 0 auto;
   --background-color: #272727;
   --on-background: #f2f2f2;
-  --surface-color: #f2f2f2;
-  --divider-color: #cfcfcf;
+  --muted-text: #bdbdbd;
+  --divider-color: rgb(255 255 255 / 0.2);
+  --ring-yellow: #ffcc00;
+  --ring-green: #7ebc89;
+  --ring-red: #fb4a4a;
+  --ring-blue: #0496ff;
   --pill-h: 2.5rem;
   --bottom-nav-h: calc(var(--pill-h) + 1rem + 1px);
   font-family: "Manrope", Helvetica, Arial, sans-serif;
@@ -29,8 +29,18 @@
   scroll-padding-top: calc(1rem + env(safe-area-inset-top, 0px));
 }
 
+/* MODO CLARO: el botón del header cambia data-theme (script.js) */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background-color: #efefef;
+  --on-background: #1c1c1c;
+  --muted-text: #595959;
+  --divider-color: rgb(0 0 0 / 0.2);
+}
+
 body {
   background: var(--background-color);
+  color: var(--on-background);
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
@@ -44,7 +54,6 @@ h4 {
 }
 
 .header {
-  color: var(--on-background);
   margin: var(--margin-centered);
   max-width: var(--general-max-width);
   padding: 1rem 1rem 2rem;
@@ -113,16 +122,23 @@ h4 {
   visibility: hidden;
 }
 
-.lang-toggle {
+.header-actions {
   grid-column: 2;
   grid-row: 1 / span 2;
   align-self: start;
   display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.header-button {
+  display: flex;
   align-items: center;
+  justify-content: center;
   min-height: 2.5rem;
   padding-inline: .625rem;
   background: none;
-  border: 1px solid var(--on-background);
+  border: thin solid var(--divider-color);
   border-radius: .75rem;
   color: inherit;
   font: inherit;
@@ -132,23 +148,29 @@ h4 {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-.lang-toggle span {
+.header-button span {
   font-weight: inherit;
 }
 
+.header-button svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
 @media (hover: hover) {
-  .lang-toggle:hover {
+  .header-button:hover {
     background-color: var(--on-background);
     color: var(--background-color);
   }
 }
 
-.lang-toggle:focus-visible {
+.header-button:focus-visible {
   outline: thin solid var(--on-background);
   outline-offset: 1px;
 }
 
-html:not(.js) .lang-toggle {
+html:not(.js) .header-button {
   display: none;
 }
 
@@ -161,42 +183,47 @@ html:not(.js) .lang-toggle {
   max-width: var(--general-max-width);
 }
 
-/* Cada sección son dos cards: encabezado de color y contenido en blanco */
+/* Cada sección son dos cards: encabezado y contenido */
 .main .info {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* Color del aro del cursor en cada sección (script.js) */
 #about-me {
-  --section-color: var(--color-about);
+  --section-color: var(--ring-red);
 }
 
 #experience {
-  --section-color: var(--color-experience);
+  --section-color: var(--ring-green);
 }
 
 #skills {
-  --section-color: var(--color-skills);
+  --section-color: var(--ring-yellow);
 }
 
 #projects {
-  --section-color: var(--color-projects);
+  --section-color: var(--on-background);
 }
 
 #education {
-  --section-color: var(--color-education);
+  --section-color: var(--ring-blue);
 }
 
 /* CARD */
 
+.card-title,
+.card-body,
+.skill-card,
+.hobbies li,
+.bottom-nav a {
+  border: 2px solid var(--divider-color);
+}
+
 .card-title {
   padding: 1.25rem 1rem;
   border-radius: 1rem;
-  background-color: var(--section-color);
-  color: #141414;
-  /* Texto negro o blanco según la luminosidad del color de la sección */
-  color: lch(from var(--section-color) calc((49.44 - l) * infinity) 0 0);
   font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   font-weight: 600;
   line-height: 1.2;
@@ -205,7 +232,6 @@ html:not(.js) .lang-toggle {
 .card-body {
   padding-inline: 1rem;
   border-radius: 1rem;
-  background-color: var(--surface-color);
 }
 
 .card-body> :first-child {
@@ -237,7 +263,6 @@ html:not(.js) .lang-toggle {
 }
 
 .main #about-me .p .hobbies li {
-  background-color: #ffec9e;
   border-radius: 0.5rem;
   padding: 0.2rem 0.5rem;
 }
@@ -256,13 +281,13 @@ html:not(.js) .lang-toggle {
 }
 
 .main .info .p .caption {
-  color: #595959;
+  color: var(--muted-text);
   font-size: 0.875rem;
   font-style: italic;
 }
 
 .main .info .p #highlight {
-  color: #b3124f;
+  color: var(--on-background);
   font-size: 0.875rem;
   font-style: italic;
 }
@@ -282,7 +307,7 @@ html:not(.js) .lang-toggle {
 .main #education .card-body>.p+.p {
   margin-top: 0.4rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--divider-color);
+  border-top: thin solid var(--divider-color);
 }
 
 /* SKILLS */
@@ -321,7 +346,6 @@ html:not(.js) .lang-toggle {
   gap: 1.25rem;
   padding: 1.25rem 1rem;
   border-radius: 1rem;
-  background-color: var(--surface-color);
   scroll-snap-align: start;
 }
 
@@ -332,7 +356,7 @@ html:not(.js) .lang-toggle {
 
 .skill-group-title {
   margin-bottom: 0.5rem;
-  color: #595959;
+  color: var(--muted-text);
   font-size: 0.875rem;
   font-style: italic;
   font-weight: 400;
@@ -345,7 +369,7 @@ html:not(.js) .lang-toggle {
 }
 
 .main #projects .project-link {
-  color: blue;
+  color: inherit;
   text-decoration: underline;
 }
 
@@ -356,7 +380,7 @@ html:not(.js) .lang-toggle {
   inset: auto 0 0 0;
   z-index: 10;
   background-color: var(--background-color);
-  border-top: thin solid var(--on-background);
+  border-top: thin solid var(--divider-color);
   padding: 1rem 1rem 2rem 1rem;
 }
 
@@ -373,48 +397,32 @@ html:not(.js) .lang-toggle {
 }
 
 /* Botton nav item */
-.bottom-nav li:nth-child(1) a {
-  --pill: var(--color-about);
-}
-
-.bottom-nav li:nth-child(2) a {
-  --pill: var(--color-experience);
-}
-
-.bottom-nav li:nth-child(3) a {
-  --pill: var(--color-skills);
-}
-
-.bottom-nav li:nth-child(4) a {
-  --pill: var(--color-projects);
-}
-
-.bottom-nav li:nth-child(5) a {
-  --pill: var(--color-education);
-}
-
 .bottom-nav a {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 1rem;
   border-radius: .75rem;
-  background-color: var(--pill);
-  color: var(--background-color);
-  /* Texto negro o blanco según la luminosidad de --pill (49.44 = umbral de igual contraste) */
-  color: lch(from var(--pill) calc((49.44 - l) * infinity) 0 0);
+  color: inherit;
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1;
+  transition: padding 0.2s ease-in-out;
+}
+
+/* Sube solo el texto: reparte el relleno sin cambiar el tamaño de la pill */
+@media (hover: hover) {
+  .bottom-nav a:not([aria-current]):hover {
+    padding-block: calc(1rem - 3px) calc(1rem + 3px);
+  }
 }
 
 .bottom-nav a[aria-current="location"] {
-  background-color: var(--background-color);
-  color: var(--on-background);
-  box-shadow: inset 0 0 0 2px var(--pill);
+  background-color: var(--on-background);
+  color: var(--background-color);
 }
 
-/* CURSOR: aro blanco que toma el color de la sección en la que está (script.js) */
+/* CURSOR: el aro toma el color de la sección en la que está (script.js) */
 
 .cursor {
   position: fixed;
@@ -441,7 +449,7 @@ html:not(.js) .lang-toggle {
 .cursor path {
   fill: none;
   stroke: var(--cursor-ring, var(--on-background));
-  stroke-width: 2px;
+  stroke-width: 3px;
   vector-effect: non-scaling-stroke;
   transition: stroke 0.15s ease;
 }
@@ -469,7 +477,7 @@ html:not(.js) .lang-toggle {
   max-width: var(--general-max-width);
   margin: var(--margin-centered);
   padding-bottom: 3rem;
-  color: #bdbdbd;
+  color: var(--muted-text);
 }
 
 .footer ul {
@@ -536,13 +544,24 @@ html:not(.js) .lang-toggle {
     scroll-behavior: auto;
   }
 
-  .lang-toggle,
-  .cursor {
+  .header-button,
+  .bottom-nav a,
+  .cursor,
+  .cursor path {
     transition: none;
   }
 }
 
 @media print {
+
+  /* Papel blanco: el texto claro no se vería si no se imprimen los fondos */
+  :root {
+    --background-color: #fff;
+    --on-background: #141414;
+    --muted-text: #595959;
+    --divider-color: rgb(0 0 0 / 0.15);
+  }
+
   .cursor {
     display: none;
   }
@@ -559,7 +578,7 @@ html:not(.js) .lang-toggle {
   }
 
   .bottom-nav,
-  .lang-toggle {
+  .header-button {
     display: none;
   }
 

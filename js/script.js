@@ -43,6 +43,32 @@ document.getElementById("lang-toggle").addEventListener("click", () => {
   }
 });
 
+// MODO CLARO: el <head> aplica el modo guardado; aquí se gestiona el botón. Los colores salen del CSS.
+
+const themeToggle = document.getElementById("theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+
+function syncThemeControls() {
+  themeToggle.setAttribute("aria-pressed", String(root.dataset.theme === "light"));
+  themeColor.content = getComputedStyle(root).getPropertyValue("--background-color");
+}
+
+syncThemeControls();
+
+themeToggle.addEventListener("click", () => {
+  if (root.dataset.theme === "light") {
+    delete root.dataset.theme;
+  } else {
+    root.dataset.theme = "light";
+  }
+  syncThemeControls();
+  try {
+    localStorage.setItem("theme", root.dataset.theme === "light" ? "light" : "dark");
+  } catch (e) {
+    // Sin almacenamiento el cambio funciona igual, pero no se recuerda.
+  }
+});
+
 // BOTTOM NAV: marca la sección visible y desplaza la barra hasta su pill.
 
 const navList = document.querySelector(".bottom-nav ul");
@@ -190,12 +216,8 @@ function hideCursor() {
 function updateCursorMode(target) {
   cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
 
-  const colored = target?.closest?.(".card-title, .bottom-nav a");
   const section = target?.closest?.(".info");
-
-  if (colored) {
-    cursor.style.setProperty("--cursor-ring", getComputedStyle(colored).color);
-  } else if (section) {
+  if (section) {
     cursor.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
   } else {
     cursor.style.removeProperty("--cursor-ring");
