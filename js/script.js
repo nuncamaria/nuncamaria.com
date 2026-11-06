@@ -216,7 +216,9 @@ function hideCursor() {
 function updateCursorMode(target) {
   cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
 
-  const section = target?.closest?.(".info");
+  // Sobre una pill, el aro anticipa el color de la sección a la que lleva.
+  const pill = target?.closest?.(".bottom-nav a");
+  const section = pill ? document.querySelector(pill.hash) : target?.closest?.(".info");
   if (section) {
     cursor.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
   } else {
