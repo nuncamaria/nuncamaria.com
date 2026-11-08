@@ -97,12 +97,15 @@ const translationsEs = {
   "project.year": "Año",
   "project.images": "Imágenes del proyecto",
 
-  "projectExample.pageTitle": "Nombre del proyecto | María Núñez",
-  "projectExample.name": "Nombre del proyecto",
-  "projectExample.context1": "Primer párrafo: qué era el proyecto, para quién y qué problema tenía que resolver.",
-  "projectExample.context2": "Segundo párrafo: qué hiciste, cómo lo abordaste y qué resultado tuvo.",
-  "projectExample.role": "Tu rol",
-  "projectExample.client": "Nombre del cliente",
+  "projectExample.pageTitle": "Premios Narciso Yepes | María Núñez",
+  "projectExample.name": "Narciso Yepes. Premios de música.",
+  "projectExample.context1":
+    "Los Premios Narciso Yepes son unos galardones anuales de música de la Región de Murcia que llevan el nombre del guitarrista lorquino Narciso Yepes, una de las figuras más relevantes de la música española. El objetivo del proyecto consiste en desarrollar el diseño cartelístico de su X edición, dotando al evento de una imagen gráfica actual y contemporánea que refuerce su presencia como referente cultural dentro de la región.",
+  "projectExample.context2":
+    "El concepto de mi solución surge a raíz del análisis de su pensamiento y de su relación con la música. Yepes entendía la música como una forma de trascendencia y era su manera de conectar con su fe.",
+  "projectExample.context3": "Concepto: La música te eleva.",
+  "projectExample.role": "Diseñadora gráfica",
+  "projectExample.client": "Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño",
   "projectExample.image1": "Imagen de ejemplo 1",
   "projectExample.image2": "Imagen de ejemplo 2",
   "projectExample.image3": "Imagen de ejemplo 3",

@@ -535,10 +535,10 @@ html:not(.js) .header-button {
   color: var(--background-color);
 }
 
-/* CURSOR: el aro toma el color de la sección en la que está (script.js) */
+/* CURSOR: el aro del ratón y los del dedo toman el color de la sección que tienen debajo (script.js) */
 
 .cursor,
-.cursor-trail {
+.tap-ring {
   position: fixed;
   top: 0;
   left: 0;
@@ -550,13 +550,16 @@ html:not(.js) .header-button {
   opacity: 0;
   pointer-events: none;
   transition: scale 0.15s ease, opacity 0.15s ease;
-  /* Capa propia: el navegador lo mueve y lo escala sin volver a dibujarlo */
+}
+
+/* Capa propia para el aro del ratón: el navegador lo mueve y lo escala sin volver a dibujarlo */
+.cursor {
   will-change: translate, scale;
 }
 
 /* El trazo ondulado se dibuja desde script.js */
 .cursor svg,
-.cursor-trail svg {
+.tap-ring svg {
   display: block;
   width: 100%;
   height: 100%;
@@ -564,7 +567,7 @@ html:not(.js) .header-button {
 }
 
 .cursor path,
-.cursor-trail path {
+.tap-ring path {
   fill: none;
   stroke: var(--cursor-ring, var(--on-background));
   stroke-width: 3px;
@@ -576,20 +579,36 @@ html:not(.js) .header-button {
   opacity: 1;
 }
 
-/* Con el dedo, más grande para que la yema no lo tape */
-.cursor.is-over-link,
-.is-touch .cursor {
+.cursor.is-over-link {
   scale: 1.75;
 }
 
-/* Rastro: solo con el dedo. Tamaño y opacidad de cada copia, desde script.js */
-.cursor-trail {
-  z-index: 99;
-  scale: var(--trail-scale);
+/* Capa de los aros del dedo: cubre la página, por debajo de la barra inferior, y recorta lo que sobresale */
+.tap-rings {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.has-cursor .is-touch .cursor-trail {
-  opacity: var(--trail-opacity);
+/* Aro de cada toque: pegado al contenido y más grande para que la yema no lo tape. Aparece creciendo y, al sobrar, se desvanece */
+.tap-ring {
+  position: absolute;
+  opacity: 1;
+  scale: 1.75;
+  transition: scale 0.25s ease, opacity 0.3s ease;
+}
+
+@starting-style {
+  .tap-ring {
+    opacity: 0;
+    scale: 1;
+  }
+}
+
+.tap-ring.is-leaving {
+  opacity: 0;
 }
 
 .has-cursor,
@@ -690,12 +709,10 @@ html:not(.js) .header-button {
   .bottom-nav a,
   .project-card img,
   .cursor,
-  .cursor path {
+  .cursor path,
+  .tap-ring,
+  .tap-ring path {
     transition: none;
-  }
-
-  .cursor-trail {
-    display: none;
   }
 }
 
