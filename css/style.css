@@ -21,6 +21,8 @@
   --ring-green: #7ebc89;
   --ring-red: #fb4a4a;
   --ring-blue: #0496ff;
+  /* Texto principal del header y de las páginas de proyecto */
+  --lead-size: clamp(1.25rem, 1rem + 0.8vw, 1.4rem);
   --pill-h: 2.5rem;
   --bottom-nav-h: calc(var(--pill-h) + 1rem + 1px);
   font-family: "Manrope", Helvetica, Arial, sans-serif;
@@ -65,7 +67,7 @@ h4 {
 
 .header>p {
   grid-column: 1;
-  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.4rem);
+  font-size: var(--lead-size);
   font-weight: 500;
   line-height: 1.35;
 }
@@ -373,6 +375,117 @@ html:not(.js) .header-button {
   text-decoration: underline;
 }
 
+/* PROYECTOS: cards de imagen. Una sola ocupa todo el ancho; a partir de dos, se reparten en columnas */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 0.5rem;
+}
+
+.project-card {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.project-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.4s ease;
+}
+
+@media (hover: hover) {
+  .project-card:hover img {
+    scale: 1.03;
+  }
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--on-background);
+  outline-offset: 2px;
+}
+
+/* PÁGINA DE PROYECTO */
+
+.project-page {
+  padding-bottom: 0;
+}
+
+.project-bar,
+.project-info,
+.project-gallery {
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.project-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 1rem;
+}
+
+.project-bar h1 {
+  min-width: 0;
+  margin-inline: 0.25rem auto;
+  font-size: var(--lead-size);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.project-bar .header-actions {
+  flex-direction: row;
+}
+
+.project-info {
+  display: grid;
+  gap: 2rem;
+  padding-block: 1rem 3rem;
+}
+
+.project-label {
+  margin-bottom: 0.25rem;
+  color: var(--muted-text);
+  font-size: 0.875rem;
+}
+
+.project-context p,
+.project-meta dd {
+  font-size: var(--lead-size);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.project-context p+p {
+  margin-top: 1.5rem;
+  text-indent: 1.5em;
+}
+
+.project-meta {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+}
+
+.project-gallery {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: 3rem;
+}
+
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
 /* BOTTOM NAV */
 
 .bottom-nav {
@@ -424,7 +537,8 @@ html:not(.js) .header-button {
 
 /* CURSOR: el aro toma el color de la sección en la que está (script.js) */
 
-.cursor {
+.cursor,
+.cursor-trail {
   position: fixed;
   top: 0;
   left: 0;
@@ -439,14 +553,16 @@ html:not(.js) .header-button {
 }
 
 /* El trazo ondulado se dibuja desde script.js */
-.cursor svg {
+.cursor svg,
+.cursor-trail svg {
   display: block;
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-.cursor path {
+.cursor path,
+.cursor-trail path {
   fill: none;
   stroke: var(--cursor-ring, var(--on-background));
   stroke-width: 3px;
@@ -458,8 +574,20 @@ html:not(.js) .header-button {
   opacity: 1;
 }
 
-.cursor.is-over-link {
+/* Con el dedo, más grande para que la yema no lo tape */
+.cursor.is-over-link,
+.is-touch .cursor {
   scale: 1.75;
+}
+
+/* Rastro: solo con el dedo. Tamaño y opacidad de cada copia, desde script.js */
+.cursor-trail {
+  z-index: 99;
+  scale: var(--trail-scale);
+}
+
+.has-cursor .is-touch .cursor-trail {
+  opacity: var(--trail-opacity);
 }
 
 .has-cursor,
@@ -537,6 +665,18 @@ html:not(.js) .header-button {
   .bottom-nav {
     padding: 1rem;
   }
+
+  .project-info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-gallery {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .project-gallery .is-wide {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -546,9 +686,14 @@ html:not(.js) .header-button {
 
   .header-button,
   .bottom-nav a,
+  .project-card img,
   .cursor,
   .cursor path {
     transition: none;
+  }
+
+  .cursor-trail {
+    display: none;
   }
 }
 

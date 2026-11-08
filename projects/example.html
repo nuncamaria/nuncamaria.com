@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#272727">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <script src="../js/boot.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css" />
+    <title data-i18n="projectExample.pageTitle">Project name | María Núñez</title>
+    <script src="../js/translations.js" defer></script>
+    <script src="../js/script.js" defer></script>
+</head>
+
+<body class="project-page">
+    <header class="project-bar">
+        <a class="header-button" href="../index.html#projects" aria-label="Back to projects" title="Back to projects"
+            data-i18n-aria-label="project.back" data-i18n-title="project.back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" focusable="false" aria-hidden="true">
+                <path d="M19 12H5" />
+                <path d="m11 6-6 6 6 6" />
+            </svg>
+        </a>
+        <h1 data-i18n="projectExample.name">Narciso Yepes. Music Awards.</h1>
+        <div class="header-actions">
+            <button class="header-button" type="button" id="lang-toggle" aria-label="Switch to Spanish (ES)"
+                title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
+                <span data-i18n="lang.target">ES</span>
+            </button>
+            <button class="header-button" type="button" id="theme-toggle" aria-pressed="false" aria-label="Light mode"
+                title="Light mode" data-i18n-aria-label="theme.light" data-i18n-title="theme.light">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false"
+                    aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-info">
+            <div class="project-context">
+                <h2 class="project-label" data-i18n="project.context">Context</h2>
+                <p data-i18n="projectExample.context1">Los Premios Narciso Yepes son unos galardones anuales de música
+                    de la Región de Murcia que llevan el nombre del guitarrista lorquino Narciso Yepes, una de las
+                    figuras más relevantes de la música española.
+                    El objetivo del proyecto consiste en desarrollar el diseño cartelístico de su X edición, dotando al
+                    evento de una imagen gráfica actual y contemporánea que refuerce su presencia como referente
+                    cultural dentro de la región.</p>
+                <p data-i18n="projectExample.context2">El concepto de mi solución surge a raíz del análisis de su
+                    pensamiento y de su relación con la música. Yepes entendía la música como una forma de trascendencia y era su manera
+                    de conectar con su fe.</p>
+                       <p data-i18n="projectExample.context3">Concepto: La música te eleva.</p>
+            </div>
+            <dl class="project-meta">
+                <div>
+                    <dt class="project-label" data-i18n="project.role">Role</dt>
+                    <dd data-i18n="projectExample.role">Graphic Designer</dd>
+                </div>
+                <div>
+                    <dt class="project-label" data-i18n="project.client">Client</dt>
+                    <dd data-i18n="projectExample.client">Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño</dd>
+                </div>
+                <div>
+                    <dt class="project-label" data-i18n="project.year">Year</dt>
+                    <dd>2026</dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- is-wide ocupa todo el ancho; dos imágenes seguidas sin is-wide comparten fila (2/3 y 1/3) -->
+        <section class="project-gallery" aria-labelledby="project-gallery-title">
+            <h2 class="visually-hidden" id="project-gallery-title" data-i18n="project.images">Project images</h2>
+            <img class="is-wide" src="../images/projects/example/cover.svg" width="1600" height="1000"
+                alt="Example image 1" data-i18n-alt="projectExample.image1" />
+            <img class="is-wide" src="../images/projects/example/wide.svg" width="1600" height="1000" loading="lazy"
+                alt="Example image 2" data-i18n-alt="projectExample.image2" />
+            <img src="../images/projects/example/landscape.svg" width="1200" height="1000" loading="lazy"
+                alt="Example image 3" data-i18n-alt="projectExample.image3" />
+            <img src="../images/projects/example/portrait.svg" width="600" height="1000" loading="lazy"
+                alt="Example image 4" data-i18n-alt="projectExample.image4" />
+        </section>
+    </main>
+
+    <footer class="footer">
+        <ul>
+            <li>
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/nuncamaria">GitHub</a>
+            </li>
+            <li>
+                <a target="_blank" rel="noopener noreferrer"
+                    href="https://www.linkedin.com/in/marianunezcanovas/">LinkedIn</a>
+            </li>
+        </ul>
+        <p>© 2026 María Núñez</p>
+    </footer>
+</body>
+
+</html>

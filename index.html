@@ -13,39 +13,7 @@
     <meta property="og:description"
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer.">
     <meta property="og:locale" content="en_US">
-    <script>
-        (function () {
-            var root = document.documentElement;
-            root.classList.add("js");
-
-            // Aplica el modo guardado antes de pintar, para no ver un instante el oscuro.
-            try {
-                if (localStorage.getItem("theme") === "light") root.dataset.theme = "light";
-            } catch (e) { }
-
-            var lang = null;
-            try {
-                var saved = localStorage.getItem("lang");
-                if (saved === "es" || saved === "en") lang = saved;
-            } catch (e) { }
-
-            var preferred = navigator.languages && navigator.languages.length
-                ? navigator.languages
-                : [navigator.language || "en"];
-            for (var i = 0; !lang && i < preferred.length; i++) {
-                var code = preferred[i].slice(0, 2).toLowerCase();
-                if (code === "es" || code === "en") lang = code;
-            }
-
-            root.lang = lang || "en";
-
-            // Evita ver el inglés un instante; el temporizador muestra la página aunque falle el JS.
-            if (root.lang === "es") {
-                root.classList.add("i18n-pending");
-                setTimeout(function () { root.classList.remove("i18n-pending"); }, 1500);
-            }
-        })();
-    </script>
+    <script src="./js/boot.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
