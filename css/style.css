@@ -550,6 +550,8 @@ html:not(.js) .header-button {
   opacity: 0;
   pointer-events: none;
   transition: scale 0.15s ease, opacity 0.15s ease;
+  /* Capa propia: el navegador lo mueve y lo escala sin volver a dibujarlo */
+  will-change: translate, scale;
 }
 
 /* El trazo ondulado se dibuja desde script.js */

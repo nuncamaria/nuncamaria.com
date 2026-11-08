@@ -191,16 +191,23 @@ const trail = Array.from({ length: TRAIL_LENGTH }, (_, i) => {
 cursorLayer.append(...trail.map(({ el }) => el), cursor);
 document.body.append(cursorLayer);
 
-const ringPaths = [cursor.querySelector("path"), ...trail.map(({ path }) => path)];
+const cursorPath = cursor.querySelector("path");
 const CURSOR_POINTS = 72;
 const CURSOR_RADIUS = 48;
 
 let cursorX = 0;
 let cursorY = 0;
 let cursorWaveRunning = false;
+let trailRunning = false;
 
 function isTouchCursor() {
   return cursorLayer.classList.contains("is-touch");
+}
+
+// Con el dedo el aro no se redibuja: las copias toman su forma al apoyarlo y luego solo cambian de sitio.
+function syncTrailShape() {
+  const shape = cursorPath.getAttribute("d");
+  trail.forEach(({ path }) => path.setAttribute("d", shape));
 }
 
 function moveTrail(jump = false) {
@@ -213,6 +220,22 @@ function moveTrail(jump = false) {
     x = ring.x;
     y = ring.y;
   });
+}
+
+// Solo corre mientras el dedo está apoyado. Al soltar, el rastro se queda donde estaba y se desvanece con el aro.
+function animateTrail() {
+  if (!root.classList.contains("has-cursor") || !isTouchCursor()) {
+    trailRunning = false;
+    return;
+  }
+  moveTrail();
+  requestAnimationFrame(animateTrail);
+}
+
+function startTrail() {
+  if (trailRunning || reducedMotion.matches) return;
+  trailRunning = true;
+  requestAnimationFrame(animateTrail);
 }
 
 // Suma varias ondas que avanzan a distinto ritmo para que el temblor no parezca repetitivo.
@@ -230,22 +253,21 @@ function drawCursorWave(time) {
     const y = 50 + radius * Math.sin(angle);
     path += `${i ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`;
   }
-  ringPaths.forEach((ring) => ring.setAttribute("d", `${path}Z`));
+  cursorPath.setAttribute("d", `${path}Z`);
 }
 
-// Solo anima mientras el cursor se ve. Con movimiento reducido, la forma queda quieta.
+// Solo anima mientras se ve el aro del ratón. Con el dedo o con movimiento reducido, la forma queda quieta.
 function animateCursorWave(time) {
-  if (!root.classList.contains("has-cursor") || reducedMotion.matches) {
+  if (!root.classList.contains("has-cursor") || reducedMotion.matches || isTouchCursor()) {
     cursorWaveRunning = false;
     return;
   }
   drawCursorWave(time);
-  if (isTouchCursor()) moveTrail();
   requestAnimationFrame(animateCursorWave);
 }
 
 function startCursorWave() {
-  if (cursorWaveRunning || reducedMotion.matches) return;
+  if (cursorWaveRunning || reducedMotion.matches || isTouchCursor()) return;
   cursorWaveRunning = true;
   requestAnimationFrame(animateCursorWave);
 }
@@ -285,8 +307,7 @@ function moveCursor(event) {
   placeCursor(event.clientX, event.clientY, event.target);
 }
 
-// En pantallas táctiles el aro aparece al apoyar el dedo, lo sigue al arrastrar y se va al soltar.
-// Se usan eventos táctiles porque, al empezar el scroll, los de puntero se cancelan.
+// En mobile, el aro aparece al hacer drag.
 function touchCursor(event) {
   const touch = event.touches[0];
   if (!touch) return;
@@ -294,7 +315,11 @@ function touchCursor(event) {
   // Durante el scroll el contenido se mueve bajo el dedo: se mira qué hay debajo en cada momento.
   placeCursor(touch.clientX, touch.clientY, document.elementFromPoint(touch.clientX, touch.clientY));
   // Al apoyar el dedo, el rastro empieza ahí y no viene arrastrado desde el toque anterior.
-  if (event.type === "touchstart") moveTrail(true);
+  if (event.type === "touchstart") {
+    syncTrailShape();
+    moveTrail(true);
+  }
+  startTrail();
 }
 
 function releaseTouchCursor(event) {
