@@ -164,25 +164,24 @@ if (brand) {
   setInterval(showNextBrandWord, BRAND_INTERVAL_MS);
 }
 
-// CURSOR circunferencia. Con ratón, un aro que sigue al puntero; con el dedo, un aro por cada toque.
+// CURSOR circunferencia: un aro que sigue al ratón. Con el dedo no aparece.
 
-const RING_SVG = '<svg viewBox="0 0 100 100" focusable="false"><path></path></svg>';
 const CURSOR_POINTS = 72;
 const CURSOR_RADIUS = 48;
 
 const cursor = document.createElement("div");
 cursor.className = "cursor";
 cursor.setAttribute("aria-hidden", "true");
-cursor.innerHTML = RING_SVG;
+cursor.innerHTML = '<svg viewBox="0 0 100 100" focusable="false"><path></path></svg>';
 document.body.append(cursor);
 
 const cursorPath = cursor.querySelector("path");
-// section: la sección cuyo color lleva el aro. Solo se vuelve a leer el color cuando cambia.
-const mouseRing = { el: cursor, section: undefined };
 
 let cursorX = 0;
 let cursorY = 0;
-let wavesRunning = false;
+let cursorWaveRunning = false;
+// Sección cuyo color lleva el aro. Mientras no cambie, no hace falta volver a leerlo (en el scroll, cada fotograma).
+let ringSection = null;
 
 // Suma varias ondas que avanzan a distinto ritmo para que el temblor no parezca repetitivo.
 function wavePath(time) {
@@ -202,25 +201,20 @@ function wavePath(time) {
   return `${path}Z`;
 }
 
-// Un solo bucle ondula el aro del ratón y los del dedo que están a la vista; se para cuando no queda ninguno.
-// Con movimiento reducido, las formas quedan quietas.
-function animateWaves(time) {
-  const mouseVisible = root.classList.contains("has-cursor");
-  const visibleTapRings = tapRings.filter((ring) => ring.visible);
-  if (reducedMotion.matches || (!mouseVisible && visibleTapRings.length === 0)) {
-    wavesRunning = false;
+// Solo anima mientras se ve el aro. Con movimiento reducido, la forma queda quieta.
+function animateCursorWave(time) {
+  if (!root.classList.contains("has-cursor") || reducedMotion.matches) {
+    cursorWaveRunning = false;
     return;
   }
-  if (mouseVisible) cursorPath.setAttribute("d", wavePath(time));
-  // Cada aro del dedo va desfasado para que no ondulen todos a la vez.
-  visibleTapRings.forEach((ring) => ring.path.setAttribute("d", wavePath(time + ring.phase)));
-  requestAnimationFrame(animateWaves);
+  cursorPath.setAttribute("d", wavePath(time));
+  requestAnimationFrame(animateCursorWave);
 }
 
-function startWaves() {
-  if (wavesRunning || reducedMotion.matches) return;
-  wavesRunning = true;
-  requestAnimationFrame(animateWaves);
+function startCursorWave() {
+  if (cursorWaveRunning || reducedMotion.matches) return;
+  cursorWaveRunning = true;
+  requestAnimationFrame(animateCursorWave);
 }
 
 cursorPath.setAttribute("d", wavePath(0));
@@ -229,88 +223,33 @@ function hideCursor() {
   root.classList.remove("has-cursor");
 }
 
-// La sección bajo un punto. Sobre una pill, la sección a la que lleva.
-function sectionAt(target) {
-  const pill = target?.closest?.(".bottom-nav a");
-  return pill ? document.querySelector(pill.hash) : (target?.closest?.(".info") ?? null);
-}
+function updateCursorMode(target) {
+  cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
 
-function paintRing(ring, section) {
-  if (section === ring.section) return;
-  ring.section = section;
+  // Sobre una pill, el aro anticipa el color de la sección a la que lleva.
+  const pill = target?.closest?.(".bottom-nav a");
+  const section = pill ? document.querySelector(pill.hash) : target?.closest?.(".info");
+  if (section === ringSection) return;
+  ringSection = section;
   if (section) {
-    ring.el.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
+    cursor.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
   } else {
-    ring.el.style.removeProperty("--cursor-ring");
+    cursor.style.removeProperty("--cursor-ring");
   }
 }
 
-function updateCursorMode(target) {
-  cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
-  paintRing(mouseRing, sectionAt(target));
-}
-
 function moveCursor(event) {
-  // El dedo lo gestiona addTapRing.
+  // Con el dedo no hay aro.
   if (event.pointerType === "touch") return;
   cursorX = event.clientX;
   cursorY = event.clientY;
   cursor.style.translate = `${cursorX}px ${cursorY}px`;
   updateCursorMode(event.target);
   root.classList.add("has-cursor");
-  startWaves();
+  startCursorWave();
 }
 
-// Con el dedo, cada toque deja un aro pegado al contenido, cada uno con su ondulación y el color de su sección.
-// Al hacer scroll se desplaza con la página. A partir de TAP_RINGS_MAX, el más antiguo se desvanece.
-const TAP_RINGS_MAX = 4;
-const TAP_RING_FADE_MS = 300;
-const tapRings = [];
-
-// Capa del tamaño de la página que recorta los aros, para que uno junto al borde no cree scroll horizontal.
-const tapLayer = document.createElement("div");
-tapLayer.className = "tap-rings";
-tapLayer.setAttribute("aria-hidden", "true");
-document.body.append(tapLayer);
-
-// Marca qué aros siguen a la vista: los que el scroll ha sacado de la pantalla dejan de ondular.
-const tapRingByEl = new WeakMap();
-const tapRingObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    const ring = tapRingByEl.get(entry.target);
-    if (ring) ring.visible = entry.isIntersecting;
-  });
-  startWaves();
-});
-
-function addTapRing(event) {
-  // changedTouches: el dedo que acaba de apoyarse, aunque ya hubiera otro en la pantalla.
-  const touch = event.changedTouches[0];
-  if (!touch) return;
-
-  const el = document.createElement("div");
-  el.className = "tap-ring";
-  el.innerHTML = RING_SVG;
-  const ring = { el, path: el.querySelector("path"), phase: Math.random() * 10000, visible: true, section: undefined };
-  ring.path.setAttribute("d", wavePath(ring.phase));
-  // pageX/pageY: la posición en la página, no en la pantalla, para que el aro se mueva con el contenido.
-  el.style.translate = `${touch.pageX}px ${touch.pageY}px`;
-  paintRing(ring, sectionAt(document.elementFromPoint(touch.clientX, touch.clientY)));
-  tapLayer.append(el);
-  tapRings.push(ring);
-  tapRingByEl.set(el, ring);
-  tapRingObserver.observe(el);
-  startWaves();
-
-  if (tapRings.length > TAP_RINGS_MAX) {
-    const oldest = tapRings.shift();
-    tapRingObserver.unobserve(oldest.el);
-    oldest.el.classList.add("is-leaving");
-    setTimeout(() => oldest.el.remove(), TAP_RING_FADE_MS);
-  }
-}
-
-// Al hacer scroll sin mover el ratón, lo que hay debajo de su aro también cambia.
+// Al hacer scroll sin mover el ratón, lo que hay debajo del aro también cambia.
 function refreshCursorOnScroll() {
   if (root.classList.contains("has-cursor")) {
     updateCursorMode(document.elementFromPoint(cursorX, cursorY));
@@ -319,9 +258,5 @@ function refreshCursorOnScroll() {
 
 window.addEventListener("pointermove", moveCursor, { passive: true });
 window.addEventListener("pointerdown", moveCursor, { passive: true });
-window.addEventListener("touchstart", addTapRing, { passive: true });
 window.addEventListener("scroll", refreshCursorOnScroll, { passive: true });
-// El dedo también lanza pointerleave (al empezar el scroll o al levantarlo): solo el ratón oculta su aro.
-root.addEventListener("pointerleave", (event) => {
-  if (event.pointerType !== "touch") hideCursor();
-});
+root.addEventListener("pointerleave", hideCursor);
