@@ -1,3 +1,3 @@
-# Personal Website - María Núñez
+# Portfolio - María Núñez
 
-My personal website for cv, projects and miscellany
+María Núñez portfolio.

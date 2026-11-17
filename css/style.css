@@ -525,6 +525,13 @@ html:not(.js) .header-button {
   border-radius: 1rem;
 }
 
+/* Portada más baja que el resto: se recorta (centrada) para no ocupar toda la pantalla */
+.project-gallery img:first-of-type {
+  height: auto;
+  aspect-ratio: 2 / 1;
+  max-height: 70vh;
+}
+
 /* BOTTOM NAV */
 
 .bottom-nav {
