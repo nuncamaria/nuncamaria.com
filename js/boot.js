@@ -1,13 +1,8 @@
-// Se carga sin defer en el <head> de cada página: aplica idioma y modo antes de pintar.
+// Se carga sin defer en el <head> de cada página: aplica el idioma antes de pintar.
 
 (function () {
   var root = document.documentElement;
   root.classList.add("js");
-
-  // Aplica el modo guardado antes de pintar, para no ver un instante el oscuro.
-  try {
-    if (localStorage.getItem("theme") === "light") root.dataset.theme = "light";
-  } catch (e) { }
 
   var lang = null;
   try {

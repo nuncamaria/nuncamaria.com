@@ -13,6 +13,12 @@
     <meta property="og:description"
         content="Graphic designer specialized in UI/UX with 3+ years of experience as an Android developer.">
     <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://nuncamaria.com/">
+    <meta property="og:image" content="https://nuncamaria.com/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="María Núñez logo: a hand-drawn yellow ring on a dark background">
+    <meta name="twitter:card" content="summary_large_image">
     <script src="./js/boot.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -31,20 +37,12 @@
                 title="Switch to Spanish (ES)" data-i18n-aria-label="lang.switch" data-i18n-title="lang.switch">
                 <span data-i18n="lang.target">ES</span>
             </button>
-            <button class="header-button" type="button" id="theme-toggle" aria-pressed="false" aria-label="Light mode"
-                title="Light mode" data-i18n-aria-label="theme.light" data-i18n-title="theme.light">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" focusable="false"
-                    aria-hidden="true">
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
-                </svg>
-            </button>
         </div>
         <p>
             <span class="brand"><span class="brand-words"><span class="brand-word is-active">nunca</span><span
                         class="brand-sep"> / </span><span class="brand-word">a veces</span><span class="brand-sep">
                         / </span><span class="brand-word">siempre</span></span> soy -> maria nuñez.</span>
-            <span data-i18n="header.summary">Graphic designer specialized in UI/UX with +3 years of experience as an
+            <span data-i18n="header.summary">Graphic designer specialized in UI/UX with 3+ years of experience as an
                 Android developer.</span>
         </p>
         <p data-i18n="header.values">Whenever I design digital solutions, I do it from a developer’s perspective. I'm a curious,
@@ -52,6 +50,48 @@
     </header>
 
     <main class="main">
+        <section class="info" id="projects" aria-labelledby="projects-title">
+            <h2 class="card-title" id="projects-title" data-i18n="projects.title">Projects</h2>
+            <div class="project-grid">
+                <a class="project-card" href="./projects/narcisoyepes.html">
+                    <img src="./images/projects/narcisoyepes/cover.jpg" width="1600" height="1000" alt="Narciso Yepes. Music Awards."
+                        data-i18n-alt="project1.name" />
+                    <span class="project-tag" data-i18n="project1.tag">Visual Identity</span>
+                </a>
+                <a class="project-card" href="./projects/murcianatural.html">
+                    <img src="./images/projects/murcianatural/cover.jpg" width="1600" height="1000" loading="lazy"
+                        alt="Murcia Natural" data-i18n-alt="project2.name" />
+                    <span class="project-tag" data-i18n="project2.tag">UI web design</span>
+                </a>
+                <a class="project-card" href="./projects/comerciolocal.html">
+                    <img src="./images/projects/comerciolocal/cover.jpg" width="1600" height="1000" loading="lazy"
+                        alt="I'm rich" data-i18n-alt="project3.name" />
+                    <span class="project-tag" data-i18n="project3.tag">Advertising campaign</span>
+                </a>
+                <a class="project-card" href="./projects/damaqua.html">
+                    <img src="./images/projects/damaqua/cover.jpg" width="1600" height="1000" loading="lazy"
+                        alt="Damaqua" data-i18n-alt="project4.name" />
+                    <span class="project-tag" data-i18n="project4.tag">Branding</span>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="p">
+                    <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
+                            rel="noopener noreferrer" href="https://github.com/nuncamaria/ghibli-api"
+                            title="Ghibli World Project source code" data-i18n="projects.sourceCode"
+                            data-i18n-title="projects.ghibliLink">source code</a></h3>
+                    <p class="caption" data-i18n="projects.ghibliInfo">API calls with Ktor</p>
+                </div>
+                <div class="p">
+                    <h3 class="job-position">To-do CRUD App <a class="project-link" target="_blank"
+                            rel="noopener noreferrer" href="https://github.com/nuncamaria/todo-app"
+                            title="To-Do CRUD App source code" data-i18n="projects.sourceCode"
+                            data-i18n-title="projects.todoLink">source code</a></h3>
+                    <p class="caption" data-i18n="projects.todoInfo">Database with Room</p>
+                </div>
+            </div>
+        </section>
+
         <section class="info" id="about-me" aria-labelledby="about-me-title">
             <h2 class="card-title" id="about-me-title" data-i18n="about.title">About me</h2>
             <div class="card-body">
@@ -61,7 +101,7 @@
                 </p>
                 <p class="p" data-i18n="about.p2">
                     Curious about how interfaces are built, I moved into front-end development and then Android,
-                    where I worked for three years in Kotlin and Jetpack Compose.
+                    where I worked for more than three years with Kotlin and Jetpack Compose. Before the AI boom.
                 </p>
                 <p class="p" data-i18n="about.p3">
                     Today I bring both sides together in UI/UX, designing with an understanding of how things get
@@ -152,10 +192,9 @@
                         comedy artists.</p>
                     <p class="caption" data-i18n="experience.achievements">achievements / tasks:</p>
                     <ul class="achievements">
-                        <li data-i18n="ninona.task1">Graphic Design of all advertising related with products and
-                            services.</li>
-                        <li data-i18n="ninona.task2">Manage of social media advertising campaigns.</li>
-                        <li data-i18n="ninona.task3">Creation and maintenance of all websites with Wordpress.</li>
+                        <li data-i18n="ninona.task1">Graphic design of all advertising for products and services.</li>
+                        <li data-i18n="ninona.task2">Management of social media advertising campaigns.</li>
+                        <li data-i18n="ninona.task3">Creation and maintenance of all websites with WordPress.</li>
                     </ul>
                 </div>
             </div>
@@ -198,7 +237,7 @@
                                 <li>MVVM</li>
                                 <li data-i18n="skills.designPatterns">Design patterns</li>
                                 <li data-i18n="skills.multiModule">Multi-module architecture</li>
-                                <li data-i18n="skills.testing">Unit &amp; Ui testing</li>
+                                <li data-i18n="skills.testing">Unit &amp; UI testing</li>
                             </ul>
                         </div>
                         <div class="skill-group">
@@ -219,75 +258,31 @@
             </div>
         </section>
 
-        <section class="info" id="projects" aria-labelledby="projects-title">
-            <h2 class="card-title" id="projects-title" data-i18n="projects.title">Projects</h2>
-            <div class="project-grid">
-                <a class="project-card" href="./projects/narcisoyepes.html">
-                    <img src="./images/projects/narcisoyepes/cover.png" width="1600" height="1000" alt="Narciso Yepes. Music Awards."
-                        data-i18n-alt="project1.name" />
-                    <span class="project-tag" data-i18n="project1.tag">Visual Identity</span>
-                </a>
-                <a class="project-card" href="./projects/murcianatural.html">
-                    <img src="./images/projects/murcianatural/cover.png" width="1600" height="1000" loading="lazy"
-                        alt="Murcia Natural" data-i18n-alt="project2.name" />
-                    <span class="project-tag" data-i18n="project2.tag">UI web design</span>
-                </a>
-                <a class="project-card" href="./projects/comerciolocal.html">
-                    <img src="./images/projects/comerciolocal/cover.png" width="1600" height="1000" loading="lazy"
-                        alt="I'm rich" data-i18n-alt="project3.name" />
-                    <span class="project-tag" data-i18n="project3.tag">Advertising campaign</span>
-                </a>
-                <a class="project-card" href="./projects/damaqua.html">
-                    <img src="./images/projects/damaqua/cover.png" width="1600" height="1000" loading="lazy"
-                        alt="Damaqua" data-i18n-alt="project4.name" />
-                    <span class="project-tag" data-i18n="project4.tag">Branding</span>
-                </a>
-            </div>
-            <div class="card-body">
-                <div class="p">
-                    <h3 class="job-position">Ghibli World <a class="project-link" target="_blank"
-                            rel="noopener noreferrer" href="https://github.com/nuncamaria/ghibli-api"
-                            title="Ghibli World Project source code" data-i18n="projects.sourceCode"
-                            data-i18n-title="projects.ghibliLink">source code</a></h3>
-                    <p class="caption" data-i18n="projects.ghibliInfo">Api call with Ktor</p>
-                </div>
-                <div class="p">
-                    <h3 class="job-position">To-do CRUD App <a class="project-link" target="_blank"
-                            rel="noopener noreferrer" href="https://github.com/nuncamaria/todo-app"
-                            title="To-Do CRUD App source code" data-i18n="projects.sourceCode"
-                            data-i18n-title="projects.todoLink">source code</a></h3>
-                    <p class="caption" data-i18n="projects.todoInfo">Data Base with Room</p>
-                </div>
-            </div>
-        </section>
-
         <section class="info" id="education" aria-labelledby="education-title">
             <h2 class="card-title" id="education-title" data-i18n="education.title">Education</h2>
             <div class="card-body">
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.master">UI/UX Master</span> <span
                             data-i18n="education.masterSchool">at LaBasad</span></h3>
-                    <p class="caption" data-i18n="education.masterDates">October 2025 - October 2026, online</p>
+                    <p class="caption" data-i18n="education.masterDates">Oct 2025 – Oct 2026 · Online</p>
                 </div>
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.bootcamp">Front-End Development Bootcamp</span>
                         <span data-i18n="education.bootcampSchool">at Adalab</span>
                     </h3>
-                    <p class="caption" data-i18n="education.bootcampDates">April - July 2021, online</p>
+                    <p class="caption" data-i18n="education.bootcampDates">Apr – Jul 2021 · Online</p>
                 </div>
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.degree">Graphic Design Degree</span> <span
                             data-i18n="education.degreeSchool">at School of Design</span></h3>
-                    <p class="caption" data-i18n="education.degreeDates">September 2018 - July 2021, on-site in Murcia
-                    </p>
+                    <p class="caption" data-i18n="education.degreeDates">Sep 2018 – Jun 2027 · Murcia, Spain (paused 2021–2025 for full-time employment)</p>
                 </div>
                 <div class="p">
                     <h3 class="job-position"><span data-i18n="education.vocational">Advanced Vocational Studies in
                             Illustration</span>
                         <span data-i18n="education.vocationalSchool">at School of Arts</span>
                     </h3>
-                    <p class="caption" data-i18n="education.vocationalDates">September 2015 - July 2018, on-site in
-                        Murcia</p>
+                    <p class="caption" data-i18n="education.vocationalDates">Sep 2015 – Jul 2018 · Murcia, Spain</p>
                 </div>
             </div>
         </section>
@@ -308,10 +303,10 @@
 
     <nav class="bottom-nav" aria-label="Sections" data-i18n-aria-label="nav.label">
         <ul>
+            <li><a href="#projects" data-i18n="projects.title">Projects</a></li>
             <li><a href="#about-me" data-i18n="nav.about">About</a></li>
             <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
             <li><a href="#skills" data-i18n="skills.title">Skills</a></li>
-            <li><a href="#projects" data-i18n="projects.title">Projects</a></li>
             <li><a href="#education" data-i18n="education.title">Education</a></li>
         </ul>
     </nav>

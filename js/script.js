@@ -43,32 +43,6 @@ document.getElementById("lang-toggle").addEventListener("click", () => {
   }
 });
 
-// MODO CLARO: el <head> aplica el modo guardado; aquí se gestiona el botón. Los colores salen del CSS.
-
-const themeToggle = document.getElementById("theme-toggle");
-const themeColor = document.querySelector('meta[name="theme-color"]');
-
-function syncThemeControls() {
-  themeToggle.setAttribute("aria-pressed", String(root.dataset.theme === "light"));
-  themeColor.content = getComputedStyle(root).getPropertyValue("--background-color");
-}
-
-syncThemeControls();
-
-themeToggle.addEventListener("click", () => {
-  if (root.dataset.theme === "light") {
-    delete root.dataset.theme;
-  } else {
-    root.dataset.theme = "light";
-  }
-  syncThemeControls();
-  try {
-    localStorage.setItem("theme", root.dataset.theme === "light" ? "light" : "dark");
-  } catch (e) {
-    // Sin almacenamiento el cambio funciona igual, pero no se recuerda.
-  }
-});
-
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // BOTTOM NAV: marca la sección visible y desplaza la barra hasta su pill. Solo existe en la portada.

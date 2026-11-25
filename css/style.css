@@ -10,8 +10,7 @@
 }
 
 :root {
-  color-scheme: dark;
-  --general-max-width: 900px;
+  --general-max-width: 1400px;
   --margin-centered: 0 auto;
   --background-color: #272727;
   --on-background: #f2f2f2;
@@ -22,22 +21,13 @@
   --ring-red: #fb4a4a;
   --ring-blue: #0496ff;
   /* Texto principal del header y de las páginas de proyecto */
-  --lead-size: clamp(1.25rem, 1rem + 0.8vw, 1.4rem);
+  --lead-size: clamp(1.5rem, 1rem + 0.8vw, 1.4rem);
   --pill-h: 2.5rem;
   --bottom-nav-h: calc(var(--pill-h) + 1rem + 1px);
   font-family: "Manrope", Helvetica, Arial, sans-serif;
   font-size: 16px;
   scroll-behavior: smooth;
   scroll-padding-top: calc(1rem + env(safe-area-inset-top, 0px));
-}
-
-/* MODO CLARO: el botón del header cambia data-theme (script.js) */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --background-color: #efefef;
-  --on-background: #1c1c1c;
-  --muted-text: #595959;
-  --divider-color: rgb(0 0 0 / 0.2);
 }
 
 body {
@@ -76,6 +66,7 @@ h4 {
   font-weight: inherit;
 }
 
+/* Sangría de primera línea, como en un texto corrido editorial */
 .header>p+p {
   text-indent: 1.5em;
 }
@@ -176,37 +167,12 @@ html:not(.js) .header-button {
 }
 
 .main {
-  display: grid;
-  grid-template-columns:
-    [full-start] minmax(1rem, 1fr)
-    [content-start] minmax(0, calc(var(--general-max-width) - 2rem))
-    [content-end] minmax(1rem, 1fr)
-    [full-end];
-  row-gap: 2rem;
-  padding-bottom: 2rem;
-}
-
-.main>* {
-  grid-column: content;
-}
-
-.main>#projects {
-  grid-column: full;
-  display: grid;
-  grid-template-columns: subgrid;
-  column-gap: normal;
-}
-
-.main>#projects>* {
-  grid-column: content;
-}
-
-.main>#projects>.project-grid {
-  grid-column: full;
-  justify-self: center;
-  width: 100%;
-  max-width: 100rem;
-  padding-inline: 1rem;
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+  margin: var(--margin-centered);
+  padding: 0rem 1rem 2rem 1rem;
+  max-width: var(--general-max-width);
 }
 
 /* Cada sección son dos cards: encabezado y contenido */
@@ -250,9 +216,7 @@ html:not(.js) .header-button {
 .card-title {
   padding: 1.25rem 1rem;
   border-radius: 1rem;
-  font-size: clamp(1.5rem, 6.5vw, 2.5rem);
   font-weight: 600;
-  line-height: 1.2;
 }
 
 .card-body {
@@ -399,34 +363,19 @@ html:not(.js) .header-button {
   text-decoration: underline;
 }
 
-/* PROYECTOS: cards de imagen. Una columna en móvil y dos desde tablet (4 proyectos = rejilla 2x2) */
+/* PROYECTOS: cards de imagen. Una sola ocupa todo el ancho; a partir de dos, se reparten en columnas */
 
 .project-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
   gap: 0.5rem;
 }
 
 .project-card {
-  position: relative;
   display: block;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: 1rem;
-}
-
-.project-tag {
-  position: absolute;
-  left: 0.75rem;
-  bottom: 0.75rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 0.5rem;
-  background: var(--background-color);
-  color: var(--on-background);
-  font-size: 0.8rem;
-  font-weight: 600;
-  line-height: 1.4;
-  pointer-events: none;
 }
 
 .project-card img {
@@ -525,13 +474,6 @@ html:not(.js) .header-button {
   border-radius: 1rem;
 }
 
-/* Portada más baja que el resto: se recorta (centrada) para no ocupar toda la pantalla */
-.project-gallery img:first-of-type {
-  height: auto;
-  aspect-ratio: 2 / 1;
-  max-height: 70vh;
-}
-
 /* BOTTOM NAV */
 
 .bottom-nav {
@@ -569,6 +511,7 @@ html:not(.js) .header-button {
   transition: padding 0.2s ease-in-out;
 }
 
+/* Sube solo el texto: reparte el relleno sin cambiar el tamaño de la pill */
 @media (hover: hover) {
   .bottom-nav a:not([aria-current]):hover {
     padding-block: calc(1rem - 3px) calc(1rem + 3px);
@@ -589,10 +532,12 @@ html:not(.js) .header-button {
   z-index: 100;
   width: 3rem;
   height: 3rem;
+  /* La mitad del tamaño, para centrar el aro en la posición real del ratón */
   margin: -1.5rem 0 0 -1.5rem;
   opacity: 0;
   pointer-events: none;
   transition: scale 0.15s ease, opacity 0.15s ease;
+  /* Capa propia: el navegador lo mueve y lo escala sin volver a dibujarlo */
   will-change: translate, scale;
 }
 
@@ -696,7 +641,6 @@ html:not(.js) .header-button {
     padding: 1rem;
   }
 
-  .project-grid,
   .project-info {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
