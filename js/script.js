@@ -1,6 +1,10 @@
-// IDIOMA: el <head> decide el idioma inicial; aquí se aplican los textos y se gestiona el botón.
-
 const root = document.documentElement;
+const layout = document.getElementById("layout");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const scrollBehavior = () => (reducedMotion.matches ? "auto" : "smooth");
+
+// ─── Language ─────────────────────────────────────
+
 const i18nBindings = [];
 
 document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -23,122 +27,183 @@ document.querySelectorAll("[data-i18n]").forEach((el) => {
   });
 });
 
+const langOptions = document.querySelectorAll(".lang-option");
+
 function setLanguage(lang) {
   root.lang = lang;
   i18nBindings.forEach(({ key, en, apply }) => {
     apply(lang === "es" ? (translationsEs[key] ?? en) : en);
+  });
+  langOptions.forEach((option) => {
+    option.setAttribute("aria-pressed", String(option.dataset.lang === lang));
   });
 }
 
 setLanguage(root.lang);
 root.classList.remove("i18n-pending");
 
-document.getElementById("lang-toggle").addEventListener("click", () => {
-  const next = root.lang === "es" ? "en" : "es";
-  setLanguage(next);
-  try {
-    localStorage.setItem("lang", next);
-  } catch (e) {
-    // Sin almacenamiento el cambio funciona igual, pero no se recuerda.
-  }
+langOptions.forEach((option) => {
+  option.addEventListener("click", () => {
+    const lang = option.dataset.lang;
+    if (lang === root.lang) return;
+    setLanguage(lang);
+    try {
+      localStorage.setItem("lang", lang);
+    } catch (e) { }
+  });
 });
 
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-// BOTTOM NAV: marca la sección visible y desplaza la barra hasta su pill. Solo existe en la portada.
-
-const navList = document.querySelector(".bottom-nav ul");
-
-if (navList) {
-  const navItems = [...navList.querySelectorAll("a")].map((link) => ({
-    link,
-    section: document.querySelector(link.hash),
-  }));
-  const NAV_LOCK_MS = 200;
-
-  let activeLink = null;
-  let navLock = null;
-  let spyFrame = null;
-
-  function setActiveLink(link) {
-    if (link === activeLink) return;
-    activeLink?.removeAttribute("aria-current");
-    activeLink = link;
-    link?.setAttribute("aria-current", "location");
-
-    const left = link
-      ? link.getBoundingClientRect().left -
-        navList.getBoundingClientRect().left +
-        navList.scrollLeft -
-        parseFloat(getComputedStyle(navList).paddingLeft)
-      : 0;
-    navList.scrollTo({ left, behavior: reducedMotion.matches ? "auto" : "smooth" });
-  }
-
-  function findCurrentLink() {
-    // La última sección puede no llegar arriba del todo: al final de la página, gana ella.
-    const atPageEnd = window.innerHeight + window.scrollY >= root.scrollHeight - 2;
-    if (atPageEnd) return navItems[navItems.length - 1].link;
-
-    const line = window.innerHeight / 3;
-    const current = navItems.findLast(({ section }) => section.getBoundingClientRect().top <= line);
-    return current ? current.link : null;
-  }
-
-  // Tras pulsar una pill, se respeta esa elección hasta que termina el scroll del ancla.
-  function holdNavLock() {
-    clearTimeout(navLock);
-    navLock = setTimeout(() => {
-      navLock = null;
-    }, NAV_LOCK_MS);
-  }
-
-  function updateActiveLink() {
-    if (navLock !== null) {
-      holdNavLock();
-      return;
-    }
-    if (spyFrame !== null) return;
-    spyFrame = requestAnimationFrame(() => {
-      spyFrame = null;
-      if (navLock === null) setActiveLink(findCurrentLink());
-    });
-  }
-
-  navItems.forEach(({ link }) => {
-    link.addEventListener("click", () => {
-      setActiveLink(link);
-      holdNavLock();
-    });
-  });
-
-  window.addEventListener("scroll", updateActiveLink, { passive: true });
-  window.addEventListener("resize", updateActiveLink);
-  updateActiveLink();
-}
-
-// FRASE DE MARCA: alterna "nunca / a veces / siempre". Se pausa al pasar el cursor o al tocarla. Solo existe en la portada.
+// ─── Brand rotator ────────────────────────────────
 
 const brand = document.querySelector(".brand");
+const brandWords = [...brand.querySelectorAll(".brand-word")];
+let brandIndex = 0;
 
-if (brand) {
-  const brandItems = [...brand.querySelectorAll(".brand-word")];
-  const BRAND_INTERVAL_MS = 2200;
-  let brandIndex = 0;
+setInterval(() => {
+  if (reducedMotion.matches || document.hidden || brand.matches(":hover")) return;
 
-  function showNextBrandWord() {
-    if (reducedMotion.matches || document.hidden || brand.matches(":hover")) return;
+  brandWords.forEach((word) => word.classList.remove("is-leaving"));
+  brandWords[brandIndex].classList.replace("is-active", "is-leaving");
+  brandIndex = (brandIndex + 1) % brandWords.length;
+  brandWords[brandIndex].classList.add("is-active");
+}, 2200);
 
-    brandItems.forEach((word) => word.classList.remove("is-leaving"));
-    brandItems[brandIndex].classList.replace("is-active", "is-leaving");
-    brandIndex = (brandIndex + 1) % brandItems.length;
-    brandItems[brandIndex].classList.add("is-active");
-  }
+// ─── Bio panel: collapse on desktop, drawer on mobile ───
 
-  setInterval(showNextBrandWord, BRAND_INTERVAL_MS);
+const bioPanel = document.getElementById("bio-panel");
+const bioInner = bioPanel.querySelector(".bio-inner");
+const knob = document.getElementById("col-knob");
+const mobileQuery = window.matchMedia("(max-width: 960px)");
+
+function isBioVisible() {
+  return mobileQuery.matches
+    ? layout.classList.contains("is-sheet-open")
+    : !layout.classList.contains("is-collapsed");
 }
 
-// CURSOR circunferencia: un aro que sigue al ratón. Con el dedo no aparece.
+function syncBioState() {
+  const visible = isBioVisible();
+  knob.setAttribute("aria-expanded", String(visible));
+  bioInner.inert = !visible;
+}
+
+function setBioVisible(visible) {
+  if (mobileQuery.matches) layout.classList.toggle("is-sheet-open", visible);
+  else layout.classList.toggle("is-collapsed", !visible);
+  syncBioState();
+}
+
+knob.addEventListener("click", () => setBioVisible(!isBioVisible()));
+
+bioPanel.addEventListener("click", () => {
+  if (!isBioVisible()) setBioVisible(true);
+});
+
+mobileQuery.addEventListener("change", syncBioState);
+syncBioState();
+
+// ─── Thumbnails and active section ────────────────
+
+const workPanel = document.getElementById("work-panel");
+const thumbs = [...document.querySelectorAll(".thumb")];
+const sections = thumbs.map((thumb) => document.getElementById(thumb.dataset.target));
+
+function setActiveThumb(sectionId) {
+  thumbs.forEach((thumb) => {
+    const active = thumb.dataset.target === sectionId;
+    thumb.classList.toggle("is-active", active);
+    if (active) thumb.setAttribute("aria-current", "true");
+    else thumb.removeAttribute("aria-current");
+  });
+}
+
+let thumbFrame = null;
+
+function syncActiveThumb() {
+  if (thumbFrame !== null) return;
+  thumbFrame = requestAnimationFrame(() => {
+    thumbFrame = null;
+    const index = Math.round(workPanel.scrollTop / workPanel.clientHeight);
+    const section = sections[Math.min(index, sections.length - 1)];
+    if (section) setActiveThumb(section.id);
+  });
+}
+
+workPanel.addEventListener("scroll", syncActiveThumb, { passive: true });
+window.addEventListener("resize", syncActiveThumb);
+syncActiveThumb();
+
+thumbs.forEach((thumb, i) => {
+  thumb.addEventListener("click", () => {
+    if (openDetailEl) closeDetail();
+    sections[i].scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+  });
+});
+
+// ─── Project detail ───────────────────────────────
+
+const details = new Map(
+  [...document.querySelectorAll(".detail")].map((el) => [el.dataset.project, el])
+);
+let openDetailEl = null;
+let openedInPage = false;
+
+function openDetail(name) {
+  const detail = details.get(name);
+  if (!detail || detail === openDetailEl) return;
+  if (openDetailEl) openDetailEl.hidden = true;
+
+  if (mobileQuery.matches) setBioVisible(false);
+  document.getElementById(`section-${name}`)?.scrollIntoView({ block: "start" });
+
+  openDetailEl = detail;
+  detail.hidden = false;
+  detail.scrollTop = 0;
+  root.classList.add("detail-open");
+  detail.querySelector(".detail-close").focus({ preventScroll: true });
+}
+
+function closeDetail() {
+  if (!openDetailEl) return;
+  const name = openDetailEl.dataset.project;
+  openDetailEl.hidden = true;
+  openDetailEl = null;
+  root.classList.remove("detail-open");
+
+  if (location.hash) {
+    history.replaceState(null, "", location.pathname + location.search);
+  }
+  openedInPage = false;
+  document.querySelector(`.work-frame[href="#${name}"]`)?.focus({ preventScroll: true });
+}
+
+function requestClose() {
+  if (openedInPage) history.back();
+  else closeDetail();
+}
+
+function route() {
+  const name = location.hash.slice(1);
+  if (details.has(name)) openDetail(name);
+  else closeDetail();
+}
+
+window.addEventListener("hashchange", () => {
+  openedInPage = details.has(location.hash.slice(1));
+  route();
+});
+
+document.querySelectorAll(".detail-close").forEach((button) => {
+  button.addEventListener("click", requestClose);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && openDetailEl) requestClose();
+});
+
+route();
+
+// ─── Cursor ring ──────────────────────────────────
 
 const CURSOR_POINTS = 72;
 const CURSOR_RADIUS = 48;
@@ -150,14 +215,11 @@ cursor.innerHTML = '<svg viewBox="0 0 100 100" focusable="false"><path></path></
 document.body.append(cursor);
 
 const cursorPath = cursor.querySelector("path");
-
 let cursorX = 0;
 let cursorY = 0;
+let cursorTarget = null;
 let cursorWaveRunning = false;
-// Sección cuyo color lleva el aro. Mientras no cambie, no hace falta volver a leerlo (en el scroll, cada fotograma).
-let ringSection = null;
 
-// Suma varias ondas que avanzan a distinto ritmo para que el temblor no parezca repetitivo.
 function wavePath(time) {
   const t = time / 1000;
   let path = "";
@@ -175,7 +237,6 @@ function wavePath(time) {
   return `${path}Z`;
 }
 
-// Solo anima mientras se ve el aro. Con movimiento reducido, la forma queda quieta.
 function animateCursorWave(time) {
   if (!root.classList.contains("has-cursor") || reducedMotion.matches) {
     cursorWaveRunning = false;
@@ -193,44 +254,32 @@ function startCursorWave() {
 
 cursorPath.setAttribute("d", wavePath(0));
 
-function hideCursor() {
-  root.classList.remove("has-cursor");
-}
-
-function updateCursorMode(target) {
-  cursor.classList.toggle("is-over-link", Boolean(target?.closest?.("a, button")));
-
-  // Sobre una pill, el aro anticipa el color de la sección a la que lleva.
-  const pill = target?.closest?.(".bottom-nav a");
-  const section = pill ? document.querySelector(pill.hash) : target?.closest?.(".info");
-  if (section === ringSection) return;
-  ringSection = section;
-  if (section) {
-    cursor.style.setProperty("--cursor-ring", getComputedStyle(section).getPropertyValue("--section-color"));
-  } else {
-    cursor.style.removeProperty("--cursor-ring");
-  }
+function updateCursorTarget(target) {
+  if (!target || target === cursorTarget) return;
+  cursorTarget = target;
+  cursor.classList.toggle("is-over-link", Boolean(target.closest("a, button")));
+  const ring = getComputedStyle(target).getPropertyValue("--ring").trim();
+  if (ring) cursor.style.setProperty("--cursor-ring", ring);
+  else cursor.style.removeProperty("--cursor-ring");
 }
 
 function moveCursor(event) {
-  // Con el dedo no hay aro.
   if (event.pointerType === "touch") return;
   cursorX = event.clientX;
   cursorY = event.clientY;
   cursor.style.translate = `${cursorX}px ${cursorY}px`;
-  updateCursorMode(event.target);
+  updateCursorTarget(event.target);
   root.classList.add("has-cursor");
   startCursorWave();
 }
 
-// Al hacer scroll sin mover el ratón, lo que hay debajo del aro también cambia.
 function refreshCursorOnScroll() {
   if (root.classList.contains("has-cursor")) {
-    updateCursorMode(document.elementFromPoint(cursorX, cursorY));
+    updateCursorTarget(document.elementFromPoint(cursorX, cursorY));
   }
 }
 
 window.addEventListener("pointermove", moveCursor, { passive: true });
 window.addEventListener("pointerdown", moveCursor, { passive: true });
-window.addEventListener("scroll", refreshCursorOnScroll, { passive: true });
-root.addEventListener("pointerleave", hideCursor);
+document.addEventListener("scroll", refreshCursorOnScroll, { passive: true, capture: true });
+root.addEventListener("pointerleave", () => root.classList.remove("has-cursor"));

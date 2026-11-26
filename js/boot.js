@@ -1,4 +1,4 @@
-// Se carga sin defer en el <head> de cada página: aplica el idioma antes de pintar.
+// Runs before paint: saved choice first, then the browser language, English otherwise.
 
 (function () {
   var root = document.documentElement;
@@ -20,7 +20,6 @@
 
   root.lang = lang || "en";
 
-  // Evita ver el inglés un instante; el temporizador muestra la página aunque falle el JS.
   if (root.lang === "es") {
     root.classList.add("i18n-pending");
     setTimeout(function () { root.classList.remove("i18n-pending"); }, 1500);
