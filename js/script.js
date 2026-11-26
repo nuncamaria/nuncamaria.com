@@ -28,12 +28,24 @@ document.querySelectorAll("[data-i18n]").forEach((el) => {
 });
 
 const langOptions = document.querySelectorAll(".lang-option");
+const lastUpdated = document.querySelector(".last-updated");
+
+function formatLastUpdated(lang) {
+  if (!lastUpdated) return;
+  const [year, month, day] = lastUpdated.getAttribute("datetime").split("-").map(Number);
+  lastUpdated.textContent = new Intl.DateTimeFormat(lang, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(year, month - 1, day));
+}
 
 function setLanguage(lang) {
   root.lang = lang;
   i18nBindings.forEach(({ key, en, apply }) => {
     apply(lang === "es" ? (translationsEs[key] ?? en) : en);
   });
+  formatLastUpdated(lang);
   langOptions.forEach((option) => {
     option.setAttribute("aria-pressed", String(option.dataset.lang === lang));
   });

@@ -10,6 +10,7 @@ const translationsEs = {
   "nav.more": "Más sobre mí",
   "thumbs.label": "Miniaturas de proyectos",
   "contact.title": "Contacto",
+  "footer.updated": "Última actualización:",
   "intro.label": "Introducción",
 
   "brand.before": "",
