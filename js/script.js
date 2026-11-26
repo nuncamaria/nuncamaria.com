@@ -87,16 +87,28 @@ function syncBioState() {
   bioInner.inert = !visible;
 }
 
+function resetBioScroll() {
+  if (!isBioVisible()) bioPanel.scrollTop = 0;
+}
+
 function setBioVisible(visible) {
   if (mobileQuery.matches) layout.classList.toggle("is-sheet-open", visible);
   else layout.classList.toggle("is-collapsed", !visible);
   syncBioState();
+  // With reduced motion there's no transition, so no transitionend to wait for.
+  if (!visible && reducedMotion.matches) resetBioScroll();
 }
 
 knob.addEventListener("click", () => setBioVisible(!isBioVisible()));
 
+// Reset the scroll once the drawer has finished closing, so it doesn't jump mid-slide.
+bioPanel.addEventListener("transitionend", (event) => {
+  if (event.target === bioPanel && event.propertyName === "transform") resetBioScroll();
+});
+
+// On desktop, clicking the collapsed panel expands it. On mobile only the button opens the drawer.
 bioPanel.addEventListener("click", () => {
-  if (!isBioVisible()) setBioVisible(true);
+  if (!mobileQuery.matches && !isBioVisible()) setBioVisible(true);
 });
 
 mobileQuery.addEventListener("change", syncBioState);
