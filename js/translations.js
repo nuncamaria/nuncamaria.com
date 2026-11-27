@@ -132,7 +132,6 @@ const translationsEs = {
   "project1.context3": "Concepto: La música te eleva.",
   "project1.role": "Diseñadora gráfica",
   "project1.client": "Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño",
-  "project1.cover": "Cartel de los Premios Narciso Yepes: el nombre en grandes letras negras sobre un fondo de acuarela azul y amarilla",
 
   "project2.tag": "Diseño web UI",
   "project2.name": "Murcia Natural",
@@ -143,7 +142,6 @@ const translationsEs = {
   "project2.context3": "Concepto: Naturaleza bruta.",
   "project2.role": "Diseñadora gráfica",
   "project2.client": "Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño",
-  "project2.cover": "Logotipo de Murcia Natural: letras negras rotundas alrededor de una roca, una chumbera y una cigüeñuela",
 
   "project3.tag": "Campaña publicitaria",
   "project3.name": "Soy rica",
@@ -154,7 +152,6 @@ const translationsEs = {
   "project3.context3": "Concepto: Soy rica porque lo tengo todo sin salir del barrio.",
   "project3.role": "Directora de arte y diseñadora gráfica",
   "project3.client": "Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño",
-  "project3.cover": "Carteles de la campaña en una pared de la calle con los lemas «Soy rico», «Soy rica» y «Tengo panoja», y una persona pasando por delante",
 
   "project4.tag": "Branding",
   "project4.name": "Damaqua",
@@ -164,5 +161,4 @@ const translationsEs = {
     "El concepto surge en torno a la damajuana, un recipiente emblemático asociado al almacenaje del agua: tradición, contención, esencia. Y para el naming se decidió añadir “aqua”, ya que es la raíz latina de “agua”: claridad, pureza, universalidad.",
   "project4.role": "Diseñadora gráfica",
   "project4.client": "Cliente ficticio, proyecto elaborado como trabajo de clase en la Escuela de Diseño",
-  "project4.cover": "Logotipo de Damaqua en blanco sobre un fondo de acuarela azul",
 };

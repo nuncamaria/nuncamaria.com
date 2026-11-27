@@ -797,6 +797,16 @@ html:not(.js) .col-divider {
   height: auto;
 }
 
+.detail-gallery-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.detail-gallery-row--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 /* ─── Cursor ring ────────────────────────────────── */
 
 .cursor {
@@ -823,7 +833,7 @@ html:not(.js) .col-divider {
 .cursor path {
   fill: none;
   stroke: var(--cursor-ring, var(--on-ink));
-  stroke-width: 3px;
+  stroke-width: 5px;
   vector-effect: non-scaling-stroke;
   transition: stroke 0.15s ease;
 }
@@ -833,7 +843,7 @@ html:not(.js) .col-divider {
 }
 
 .cursor.is-over-link {
-  scale: 1.75;
+  scale: 1.5;
 }
 
 .has-cursor,
@@ -940,6 +950,10 @@ html:not(.js) .col-divider {
     grid-template-columns: 1fr;
     gap: 32px;
     padding-bottom: 32px;
+  }
+
+  .detail-gallery-row {
+    grid-template-columns: 1fr;
   }
 
   .detail-open,
