@@ -172,10 +172,31 @@ const details = new Map(
 let openDetailEl = null;
 let openedInPage = false;
 
+// Gallery videos only download and play while their detail is open.
+// With reduced motion they stay paused on the poster and show controls instead.
+function playDetailVideos(detail) {
+  detail.querySelectorAll("video").forEach((video) => {
+    if (reducedMotion.matches) {
+      video.controls = true;
+      return;
+    }
+    video.play().catch(() => {
+      video.controls = true;
+    });
+  });
+}
+
+function pauseDetailVideos(detail) {
+  detail.querySelectorAll("video").forEach((video) => video.pause());
+}
+
 function openDetail(name) {
   const detail = details.get(name);
   if (!detail || detail === openDetailEl) return;
-  if (openDetailEl) openDetailEl.hidden = true;
+  if (openDetailEl) {
+    openDetailEl.hidden = true;
+    pauseDetailVideos(openDetailEl);
+  }
 
   if (mobileQuery.matches) setBioVisible(false);
   document.getElementById(`section-${name}`)?.scrollIntoView({ block: "start" });
@@ -185,12 +206,14 @@ function openDetail(name) {
   detail.scrollTop = 0;
   root.classList.add("detail-open");
   detail.querySelector(".detail-close").focus({ preventScroll: true });
+  playDetailVideos(detail);
 }
 
 function closeDetail() {
   if (!openDetailEl) return;
   const name = openDetailEl.dataset.project;
   openDetailEl.hidden = true;
+  pauseDetailVideos(openDetailEl);
   openDetailEl = null;
   root.classList.remove("detail-open");
 

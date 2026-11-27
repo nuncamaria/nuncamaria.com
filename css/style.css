@@ -792,7 +792,9 @@ html:not(.js) .col-divider {
   gap: 16px;
 }
 
-.detail-gallery img {
+.detail-gallery img,
+.detail-gallery video {
+  display: block;
   width: 100%;
   height: auto;
 }
@@ -805,6 +807,12 @@ html:not(.js) .col-divider {
 
 .detail-gallery-row--3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.detail-gallery .detail-video {
+  justify-self: center;
+  width: 72%;
+  margin: 32px 0;
 }
 
 /* ─── Cursor ring ────────────────────────────────── */
@@ -954,6 +962,11 @@ html:not(.js) .col-divider {
 
   .detail-gallery-row {
     grid-template-columns: 1fr;
+  }
+
+  .detail-gallery .detail-video {
+    width: 88%;
+    margin: 16px 0;
   }
 
   .detail-open,
